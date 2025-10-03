@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自然之窗 - 生物爱好者的动物世界</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2E7D32', // 自然绿作为主色调
+            secondary: '#FF8F00', // 暖橙色作为强调色
+            neutral: {
+              100: '#F5F5F5',
+              200: '#EEEEEE',
+              800: '#263238',
+              900: '#1A237E'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+      }
+      .bg-gradient-natural {
+        background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+      }
+      .modal-backdrop {
+        @apply fixed inset-0 bg-black/50 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300;
+      }
+      .modal-backdrop.active {
+        @apply opacity-100 visible;
+      }
+      .modal-content {
+        @apply bg-white rounded-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto transform translate-y-8 transition-all duration-300;
+      }
+      .modal-backdrop.active .modal-content {
+        @apply translate-y-0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-100 font-sans text-neutral-800">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center space-x-2">
+        <i class="fa fa-paw text-primary text-2xl"></i>
+        <span class="text-xl font-bold text-primary">自然之窗</span>
+      </a>
+      
+      <!-- 桌面端导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="font-medium hover:text-primary transition-colors">首页</a>
+        <a href="#mammals" class="font-medium hover:text-primary transition-colors">哺乳动物</a>
+        <a href="#birds" class="font-medium hover:text-primary transition-colors">鸟类</a>
+        <a href="#reptiles" class="font-medium hover:text-primary transition-colors">爬行动物</a>
+        <a href="#about" class="font-medium hover:text-primary transition-colors">关于我</a>
+      </nav>
+      
+      <!-- 搜索按钮 -->
+      <button class="hidden md:block p-2 rounded-full hover:bg-neutral-200 transition-colors">
+        <i class="fa fa-search text-neutral-800"></i>
+      </button>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden p-2 rounded-full hover:bg-neutral-200 transition-colors">
+        <i class="fa fa-bars text-neutral-800"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <a href="#home" class="py-2 font-medium hover:text-primary transition-colors">首页</a>
+        <a href="#mammals" class="py-2 font-medium hover:text-primary transition-colors">哺乳动物</a>
+        <a href="#birds" class="py-2 font-medium hover:text-primary transition-colors">鸟类</a>
+        <a href="#reptiles" class="py-2 font-medium hover:text-primary transition-colors">爬行动物</a>
+        <a href="#about" class="py-2 font-medium hover:text-primary transition-colors">关于我</a>
+        <div class="relative mt-2">
+          <input type="text" placeholder="搜索动物..." class="w-full py-2 px-4 pr-10 rounded-lg border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary/50">
+          <i class="fa fa-search absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section id="home" class="pt-20 md:pt-0 min-h-screen flex items-center bg-gradient-natural text-white">
+    <div class="container mx-auto px-4 py-16 md:py-32">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          探索奇妙的<br>动物世界
+        </h1>
+        <p class="text-lg md:text-xl mb-8 text-white/90">
+          记录大自然中令人惊叹的生物多样性，分享动物的美丽与神奇。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#mammals" class="px-6 py-3 bg-white text-primary font-medium rounded-lg hover:bg-neutral-100 transition-colors shadow-lg">
+            开始探索
+          </a>
+          <a href="#about" class="px-6 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
+            了解更多
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
+      <a href="#featured" class="text-white/70 hover:text-white transition-colors">
+        <i class="fa fa-angle-down text-2xl"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 精选动物 -->
+  <section id="featured" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-2">精选动物</h2>
+          <p class="text-neutral-600">发现令人惊叹的生物奇迹</p>
+        </div>
+        <a href="#" class="hidden md:flex items-center text-primary font-medium hover:underline">
+          查看全部 <i class="fa fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+      
+      <!-- 横向滑动卡片容器 -->
+      <div class="relative">
+        <div class="overflow-x-auto scrollbar-hide pb-4">
+          <div class="flex space-x-6 w-max">
+            <!-- 动物卡片 1 -->
+            <div class="w-80 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-56 overflow-hidden">
+                <img src="picture/1.png" alt="西伯利亚雪橇犬" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">西伯利亚雪橇犬</h3>
+                  <span class="bg-primary/10 text-primary text-sm px-2 py-1 rounded-full">哺乳动物</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">西伯利亚雪橇犬，常见别名哈士奇，是一种中等体型的工作犬，原产于西伯利亚。</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> 西伯利亚</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="husky">了解更多</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 动物卡片 2 -->
+            <div class="w-80 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-56 overflow-hidden">
+                <img src="https://picsum.photos/id/433/600/400" alt="红隼" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">红隼</h3>
+                  <span class="bg-secondary/10 text-secondary text-sm px-2 py-1 rounded-full">鸟类</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">红隼是一种小型猛禽，广泛分布于欧洲、亚洲和非洲，以敏捷的飞行和精准的捕猎著称。</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> 广泛分布</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="kestrel">了解更多</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 动物卡片 3 -->
+            <div class="w-80 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-56 overflow-hidden">
+                <img src="https://picsum.photos/id/1015/600/400" alt="北极狐" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">北极狐</h3>
+                  <span class="bg-primary/10 text-primary text-sm px-2 py-1 rounded-full">哺乳动物</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">北极狐是一种适应极端寒冷环境的小型犬科动物，拥有浓密的白色毛皮和出色的生存能力。</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> 北极地区</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="arctic-fox">了解更多</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 动物卡片 4 -->
+            <div class="w-80 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-56 overflow-hidden">
+                <img src="https://picsum.photos/id/1003/600/400" alt="绿海龟" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">绿海龟</h3>
+                  <span class="bg-neutral-800/10 text-neutral-800 text-sm px-2 py-1 rounded-full">爬行动物</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">绿海龟是一种大型海龟，分布于全球的热带和亚热带海域，因脂肪呈绿色而得名。</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> 热带海域</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="green-turtle">了解更多</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 动物卡片 5 -->
+            <div class="w-80 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-56 overflow-hidden">
+                <img src="https://picsum.photos/id/1000/600/400" alt="藏羚羊" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">藏羚羊</h3>
+                  <span class="bg-primary/10 text-primary text-sm px-2 py-1 rounded-full">哺乳动物</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">藏羚羊是中国青藏高原特有的濒危哺乳动物，以其纤细的身姿和贵重的羊绒而闻名。</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> 青藏高原</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="tibetan-antelope">了解更多</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 移动端查看全部按钮 -->
+        <div class="mt-6 text-center md:hidden">
+          <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+            查看全部 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 哺乳动物分类 -->
+  <section id="mammals" class="py-20 bg-neutral-100">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center">
+            <i class="fa fa-paw text-primary mr-3"></i> 哺乳动物
+          </h2>
+          <p class="text-neutral-600">恒温、有毛发、哺乳幼崽的脊椎动物</p>
+        </div>
+        <div class="hidden md:flex space-x-2">
+          <button class="category-filter px-4 py-2 rounded-lg bg-primary text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">陆地</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">水生</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">飞行</button>
+        </div>
+      </div>
+      
+      <!-- 移动端分类筛选 -->
+      <div class="md:hidden mb-6 overflow-x-auto scrollbar-hide pb-2">
+        <div class="flex space-x-2 w-max">
+          <button class="category-filter px-4 py-2 rounded-lg bg-primary text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">陆地</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">水生</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">飞行</button>
+        </div>
+      </div>
+      
+      <!-- 网格布局卡片 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 哺乳动物卡片 1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1025/600/400" alt="鹿" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">梅花鹿</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">梅花鹿是一种中小型鹿类，夏季毛色栗红色，有许多白斑，状似梅花，因而得名。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">草食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="sika-deer">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 哺乳动物卡片 2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1074/600/400" alt="海豚" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">宽吻海豚</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">宽吻海豚是最常见的海豚种类之一，以其聪明才智和友好的性格受到人们的喜爱。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="bottlenose-dolphin">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 哺乳动物卡片 3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1062/600/400" alt="棕熊" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">棕熊</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">棕熊是陆地上最大的食肉目动物之一，分布广泛，适应力强，食性杂。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">杂食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="brown-bear">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 哺乳动物卡片 4 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1002/600/400" alt="大象" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">非洲象</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">非洲象是陆地上最大的哺乳动物，拥有长长的鼻子和巨大的耳朵，群居生活。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">草食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="african-elephant">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 哺乳动物卡片 5 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1005/600/400" alt="狼" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">灰狼</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">灰狼是犬科动物中最大的野生成员，具有高度的社会性，通常以群体形式捕猎。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="gray-wolf">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 哺乳动物卡片 6 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1024/600/400" alt="蝙蝠" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">果蝠</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">果蝠是最大的蝙蝠种类，以水果为食，对热带植物的授粉和种子传播起着重要作用。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">植食性</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="fruit-bat">详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button class="px-6 py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary/5 transition-colors">
+          加载更多 <i class="fa fa-refresh ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 鸟类分类 -->
+  <section id="birds" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center">
+            <i class="fa fa-twitter text-secondary mr-3"></i> 鸟类
+          </h2>
+          <p class="text-neutral-600">有羽毛、卵生、前肢演化成翼的脊椎动物</p>
+        </div>
+        <div class="hidden md:flex space-x-2">
+          <button class="category-filter px-4 py-2 rounded-lg bg-secondary text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">鸣禽</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">猛禽</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">水鸟</button>
+        </div>
+      </div>
+      
+      <!-- 移动端分类筛选 -->
+      <div class="md:hidden mb-6 overflow-x-auto scrollbar-hide pb-2">
+        <div class="flex space-x-2 w-max">
+          <button class="category-filter px-4 py-2 rounded-lg bg-secondary text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">鸣禽</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">猛禽</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-100 text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">水鸟</button>
+        </div>
+      </div>
+      
+      <!-- 横向滑动卡片容器 -->
+      <div class="relative">
+        <div class="overflow-x-auto scrollbar-hide pb-4">
+          <div class="flex space-x-6 w-max">
+            <!-- 鸟类卡片 1 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1069/600/400" alt="孔雀" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">蓝孔雀</h3>
+                <p class="text-sm text-neutral-500 mb-3">印度次大陆特有物种</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">蓝孔雀以其华丽的尾羽而闻名，雄鸟的尾羽上有许多眼状斑点，用于求偶展示。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="peacock">了解更多</a>
+              </div>
+            </div>
+            
+            <!-- 鸟类卡片 2 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1059/600/400" alt="鹰" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">金雕</h3>
+                <p class="text-sm text-neutral-500 mb-3">广泛分布于北半球</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">金雕是一种大型猛禽，视力极佳，飞行能力强，是自然界中顶级的掠食者之一。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="golden-eagle">了解更多</a>
+              </div>
+            </div>
+            
+            <!-- 鸟类卡片 3 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1063/600/400" alt="企鹅" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">帝企鹅</h3>
+                <p class="text-sm text-neutral-500 mb-3">南极洲特有物种</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">帝企鹅是最大的企鹅品种，能在极端寒冷的南极环境中生存，具有独特的繁殖习性。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="emperor-penguin">了解更多</a>
+              </div>
+            </div>
+            
+            <!-- 鸟类卡片 4 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1071/600/400" alt="鹦鹉" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">金刚鹦鹉</h3>
+                <p class="text-sm text-neutral-500 mb-3">美洲热带地区</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">金刚鹦鹉是色彩鲜艳的大型鹦鹉，寿命长，智力高，能模仿人类语言，是受欢迎的宠物。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="macaw">了解更多</a>
+              </div>
+            </div>
+            
+            <!-- 鸟类卡片 5 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1084/600/400" alt="天鹅" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">疣鼻天鹅</h3>
+                <p class="text-sm text-neutral-500 mb-3">欧洲、亚洲和非洲北部</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">疣鼻天鹅是一种大型水鸟，以其优雅的姿态和忠诚的伴侣关系而闻名，象征着纯洁和爱情。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="mute-swan">了解更多</a>
+              </div>
+            </div>
+            
+            <!-- 鸟类卡片 6 -->
+            <div class="w-72 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1056/600/400" alt="猫头鹰" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-1">雪鸮</h3>
+                <p class="text-sm text-neutral-500 mb-3">北极地区</p>
+                <p class="text-neutral-600 text-sm line-clamp-2">雪鸮是一种适应北极寒冷环境的大型猫头鹰，白色羽毛使其能很好地融入雪地环境。</p>
+                <a href="#" class="text-primary text-sm font-medium hover:underline mt-2 inline-block animal-detail" data-animal="snowy-owl">了解更多</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button class="px-6 py-3 bg-white border border-secondary text-secondary font-medium rounded-lg hover:bg-secondary/5 transition-colors">
+          加载更多 <i class="fa fa-refresh ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 爬行动物分类 -->
+  <section id="reptiles" class="py-20 bg-neutral-100">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center">
+            <i class="fa fa-bug text-neutral-800 mr-3"></i> 爬行动物
+          </h2>
+          <p class="text-neutral-600">变温、有鳞片、卵生的脊椎动物</p>
+        </div>
+        <div class="hidden md:flex space-x-2">
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-800 text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">蛇类</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">蜥蜴</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">龟类</button>
+        </div>
+      </div>
+      
+      <!-- 移动端分类筛选 -->
+      <div class="md:hidden mb-6 overflow-x-auto scrollbar-hide pb-2">
+        <div class="flex space-x-2 w-max">
+          <button class="category-filter px-4 py-2 rounded-lg bg-neutral-800 text-white font-medium">全部</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">蛇类</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">蜥蜴</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white text-neutral-800 font-medium hover:bg-neutral-200 transition-colors">龟类</button>
+        </div>
+      </div>
+      
+      <!-- 网格布局卡片 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 爬行动物卡片 1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1033/600/400" alt="鳄鱼" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">尼罗鳄</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">尼罗鳄是非洲最大的鳄鱼，也是世界上最大的爬行动物之一，性情凶猛，是顶级掠食者。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="nile-crocodile">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 爬行动物卡片 2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1019/600/400" alt="蛇" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">绿森蚺</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">绿森蚺是世界上最大的蛇类之一，生活在南美洲的热带雨林中，主要栖息在水域附近。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="green-anaconda">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 爬行动物卡片 3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1058/600/400" alt="蜥蜴" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">科莫多龙</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">科莫多龙是世界上最大的蜥蜴，仅分布在印度尼西亚的几个岛屿上，唾液中含有致命细菌。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="komodo-dragon">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 爬行动物卡片 4 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1050/600/400" alt="乌龟" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">加拉帕戈斯象龟</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">加拉帕戈斯象龟是世界上最大的陆龟，寿命可达100年以上，仅分布于加拉帕戈斯群岛。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">草食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="galapagos-tortoise">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 爬行动物卡片 5 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1073/600/400" alt="变色龙" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">豹纹变色龙</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">豹纹变色龙是马达加斯加特有的物种，以其鲜艳的颜色和能够快速改变体色的能力而闻名。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">昆虫食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="panther-chameleon">详情</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 爬行动物卡片 6 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1055/600/400" alt="眼镜蛇" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">眼镜王蛇</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">眼镜王蛇是世界上最长的毒蛇，主要以其他蛇类为食，分布于东南亚和印度次大陆。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">肉食性</span>
+              <a href="#" class="text-neutral-800 text-sm font-medium hover:underline animal-detail" data-animal="king-cobra">详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button class="px-6 py-3 bg-white border border-neutral-800 text-neutral-800 font-medium rounded-lg hover:bg-neutral-800/5 transition-colors">
+          加载更多 <i class="fa fa-refresh ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-3">关于我</h2>
+          <p class="text-neutral-600">一个热爱自然与动物的探索者</p>
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="w-full md:w-1/3">
+            <div class="rounded-full overflow-hidden border-4 border-primary/20 w-48 h-48 mx-auto md:mx-0">
+              <img src="https://picsum.photos/id/64/200/200" alt="站长照片" class="w-full h-full object-cover">
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3">
+            <h3 class="text-2xl font-bold mb-4">李明 - 自然摄影师 & 动物爱好者</h3>
+            <p class="text-neutral-600 mb-4">
+              我从小就对大自然和各种动物充满好奇，这种热情驱使我成为了一名自然摄影师和野生动物保护志愿者。过去十年间，我走遍了世界各地的自然保护区，用镜头记录下了无数珍贵的动物瞬间。
+            </p>
+            <p class="text-neutral-600 mb-6">
+              创建这个网站的目的是希望能与更多志同道合的朋友分享这些美丽的生物，提高人们对野生动物保护的意识。如果你也热爱自然，欢迎通过以下方式与我联系交流。
+            </p>
+            
+            <div class="flex space-x-4">
+              <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                <i class="fa fa-weibo"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                <i class="fa fa-wechat"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                <i class="fa fa-instagram"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                <i class="fa fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅区域 -->
+  <section class="py-16 bg-gradient-natural text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">订阅动物资讯</h2>
+        <p class="mb-8 opacity-90">获取最新的动物照片、趣闻和保护资讯，每月发送一次</p>
+        
+        <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+          <input type="email" placeholder="请输入您的邮箱" class="flex-1 px-4 py-3 rounded-lg text-neutral-800 focus:outline-none focus:ring-2 focus:ring-white">
+          <button type="submit" class="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-secondary/90 transition-colors whitespace-nowrap">
+            立即订阅
+          </button>
+        </form>
+        
+        <p class="mt-4 text-sm opacity-80">我们尊重您的隐私，不会向第三方分享您的信息</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-neutral-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-paw text-primary text-2xl"></i>
+            <span class="text-xl font-bold">自然之窗</span>
+          </div>
+          <p class="text-neutral-400 mb-4">探索奇妙的动物世界，分享自然的美好与神奇。</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+              <i class="fa fa-wechat"></i>
+            </a>
+            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">快速链接</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+            <li><a href="#mammals" class="text-neutral-400 hover:text-white transition-colors">哺乳动物</a></li>
+            <li><a href="#birds" class="text-neutral-400 hover:text-white transition-colors">鸟类</a></li>
+            <li><a href="#reptiles" class="text-neutral-400 hover:text-white transition-colors">爬行动物</a></li>
+            <li><a href="#about" class="text-neutral-400 hover:text-white transition-colors">关于我</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">相关资源</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">野生动物保护</a></li>
+            <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">自然摄影技巧</a></li>
+            <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">动物图鉴</a></li>
+            <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">生态旅游</a></li>
+            <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">科普文章</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">联系我</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fa fa-envelope text-primary mt-1 mr-3"></i>
+              <span class="text-neutral-400">contact@naturewindow.com</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+              <span class="text-neutral-400">北京市海淀区中关村南大街5号</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-neutral-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-neutral-500 text-sm">© 2023 自然之窗. 保留所有权利.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="#" class="text-neutral-500 hover:text-white text-sm transition-colors">隐私政策</a>
+          <a href="#" class="text-neutral-500 hover:text-white text-sm transition-colors">使用条款</a>
+          <a href="#" class="text-neutral-500 hover:text-white text-sm transition-colors">Cookie 政策</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- 动物详情模态框 -->
+  <div id="animal-modal" class="modal-backdrop">
+    <div class="modal-content px-6 py-6 md:p-8 m-4">
+      <div class="flex justify-between items-start mb-4">
+        <h3 id="modal-title" class="text-2xl font-bold"></h3>
+        <button id="close-modal" class="p-2 rounded-full hover:bg-neutral-200 transition-colors">
+          <i class="fa fa-times text-neutral-800"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <img id="modal-image" src="" alt="" class="w-full h-64 md:h-80 object-cover rounded-lg">
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span id="modal-category" class="bg-primary/10 text-primary text-sm px-2 py-1 rounded-full"></span>
+            <span id="modal-habitat" class="bg-neutral-100 text-neutral-800 text-sm px-2 py-1 rounded-full flex items-center">
+              <i class="fa fa-map-marker mr-1"></i>
+            </span>
+            <span id="modal-diet" class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full"></span>
+          </div>
+          <div id="modal-description" class="text-neutral-600 space-y-3"></div>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-neutral-200">
+        <h4 class="text-lg font-bold mb-3">更多信息</h4>
+        <div id="modal-additional" class="text-neutral-600 space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // 动物详情数据
+    const animalData = {
+      'husky': {
+        title: '西伯利亚雪橇犬',
+        image: 'https://picsum.photos/id/237/600/400',
+        category: '哺乳动物',
+        habitat: '西伯利亚',
+        diet: '肉食性',
+        description: `
+          <p>西伯利亚雪橇犬，常见别名哈士奇，是一种中等体型的工作犬，原产于西伯利亚东北部。它们最初被用于拉雪橇和协助狩猎。</p>
+          <p>哈士奇体型匀称，被毛浓密，耳朵直立，尾巴像狐狸尾巴一样卷曲。它们性格活泼、友好，对人热情，但也有一定的独立性。</p>
+        `,
+        additional: `
+          <p><strong>体型特征：</strong>雄性肩高约53-58厘米，体重20-27公斤；雌性肩高约51-56厘米，体重16-23公斤。被毛有黑白、灰白、红白等多种颜色组合。</p>
+          <p><strong>生活习性：</strong>哈士奇精力充沛，需要大量运动。它们非常社会化，适合与其他狗相处，但也有较强的探索欲，可能会试图逃跑探险。</p>
+          <p><strong>寿命：</strong>平均12-14年。</p>
+          <p><strong>文化意义：</strong>哈士奇在极地探险中发挥了重要作用，如著名的1925年诺姆血清运送事件中，哈士奇雪橇队在极端恶劣条件下成功运送了救命血清。</p>
+        `
+      },
+      'sika-deer': {
+        title: '梅花鹿',
+        image: 'https://picsum.photos/id/1025/600/400',
+        category: '哺乳动物',
+        habitat: '亚洲东部',
+        diet: '草食性',
+        description: `
+          <p>梅花鹿是一种中小型鹿类，夏季毛色栗红色，有许多白斑，状似梅花，因而得名。冬季毛色变为烟褐色，白斑不明显。</p>
+          <p>雄性梅花鹿有分叉的角，每年会脱落重长。它们性情机警，听觉和嗅觉都很发达，善于奔跑和跳跃。</p>
+        `,
+        additional: `
+          <p><strong>体型特征：</strong>体长约1.2-1.5米，肩高0.7-0.9米，体重约70-100公斤。</p>
+          <p><strong>生活习性：</strong>梅花鹿通常栖息在森林边缘和山地草原地区，喜欢在晨昏活动觅食。它们是群居动物，群体规模通常为几只到几十只不等。</p>
+          <p><strong>繁殖：</strong>每年秋季发情交配，妊娠期约8个月，每胎产1-2仔。幼鹿身上有白斑，随年龄增长逐渐消失。</p>
+          <p><strong>保护现状：</strong>由于栖息地破坏和过度捕猎，野生梅花鹿数量曾大幅减少，目前已被列为国家一级保护动物，受到严格保护。</p>
+        `
+      },
+      'golden-eagle': {
+        title: '金雕',
+        image: 'https://picsum.photos/id/1059/600/400',
+        category: '鸟类',
+        habitat: '北半球广泛分布',
+        diet: '肉食性',
+        description: `
+          <p>金雕是一种大型猛禽，是鹰科中体型最大的成员之一。它们以出色的视力、强大的飞行能力和凶猛的捕猎技巧而闻名。</p>
+          <p>成年金雕体长可达1米，翼展超过2米，体重3-6公斤。它们的羽毛呈暗褐色，头部和颈部呈金黄色，这也是它们得名的原因。</p>
+        `,
+        additional: `
+          <p><strong>捕猎能力：</strong>金雕视力极佳，能在数千米高空发现地面上的猎物。它们主要捕食野兔、啮齿类动物、鸟类甚至小型鹿类。捕猎时，它们会从高空俯冲而下，时速可达320公里，用锋利的爪子抓住猎物。</p>
+          <p><strong>繁殖：</strong>金雕是终身配偶制，每年春季筑巢繁殖，通常将巢建在悬崖峭壁上。每窝产卵1-3枚，孵化期约45天，雏鸟约3个月后离巢。</p>
+          <p><strong>寿命：</strong>野外寿命可达30年以上。</p>
+          <p><strong>文化意义：</strong>金雕在许多文化中被视为力量、勇气和自由的象征，是多个国家的国鸟或象征动物。在一些地区，金雕被训练用于捕猎狐狸和狼。</p>
+        `
+      },
+      'nile-crocodile': {
+        title: '尼罗鳄',
+        image: 'https://picsum.photos/id/1033/600/400',
+        category: '爬行动物',
+        habitat: '非洲淡水水域',
+        diet: '肉食性',
+        description: `
+          <p>尼罗鳄是非洲最大的鳄鱼，也是世界上最大的爬行动物之一。它们分布于非洲撒哈拉以南的大部分地区，主要栖息在河流、湖泊、沼泽等淡水环境中。</p>
+          <p>尼罗鳄体型庞大，成年雄性体长可达5-6米，体重可达1000公斤。它们拥有强大的颚部和锋利的牙齿，咬合力可达2500磅，是自然界中最强大的咬合力之一。</p>
+        `,
+        additional: `
+          <p><strong>捕猎行为：</strong>尼罗鳄是伏击型掠食者，它们通常潜伏在水中，只露出眼睛和鼻孔，等待猎物靠近饮水时发动突然袭击。它们的猎物包括鱼类、鸟类、羚羊、斑马等，甚至会攻击人类。</p>
+          <p><strong>繁殖：</strong>雌性尼罗鳄在河岸沙地上筑巢，每窝可产卵40-60枚。孵化期约3个月，雌鳄会守护巢穴直至幼鳄孵化，并帮助幼鳄进入水中。</p>
+          <p><strong>寿命：</strong>野外寿命可达70-100年。</p>
+          <p><strong>与人类关系：</strong>尼罗鳄是非洲造成人类死亡最多的大型动物之一。但同时，它们的皮革也很有价值，在合法养殖的情况下被用于制作奢侈品。</p>
+        `
+      },
+      // 更多动物数据可以在这里继续添加...
+      'kestrel': { title: '红隼', image: 'https://picsum.photos/id/433/600/400', category: '鸟类', habitat: '广泛分布', diet: '肉食性', description: `<p>红隼是一种小型猛禽，体长约30厘米，翼展65-80厘米。它们的羽毛呈红棕色，腹部有黑色斑点，雄鸟头部灰色，雌鸟头部棕色。</p><p>红隼以其独特的悬停捕猎方式而闻名，它们可以在空中保持相对静止的位置，观察地面寻找猎物。</p>`, additional: `<p><strong>食性：</strong>主要以啮齿类动物、小型鸟类、昆虫为食。</p><p><strong>繁殖：</strong>红隼通常在树洞中或建筑物的缝隙中筑巢，每窝产卵4-5枚，孵化期约30天。</p><p><strong>分布：</strong>广泛分布于欧洲、亚洲、非洲和美洲的部分地区，适应能力强，能在多种环境中生存。</p><p><strong>保护状况：</strong>目前种群数量稳定，被列为无危物种，但在一些地区因农药使用和栖息地破坏而减少。</p>` },
+      'arctic-fox': { title: '北极狐', image: 'https://picsum.photos/id/1015/600/400', category: '哺乳动物', habitat: '北极地区', diet: '杂食性', description: `<p>北极狐，也称为白狐，是一种适应极端寒冷环境的小型犬科动物。它们体长约50-60厘米，尾长30-40厘米，体重2.5-9公斤。</p><p>北极狐最显著的特征是其冬季纯白的厚毛皮，这不仅能保暖，还能提供极好的伪装。夏季它们的毛色会变为灰褐色。</p>`, additional: `<p><strong>适应能力：</strong>北极狐能在零下50℃的极端低温中生存，它们的毛皮密度是其他狐狸的两倍以上，且爪子上有厚毛，适合在冰面上行走。</p><p><strong>食性：</strong>主要以旅鼠为食，也捕食鸟类、鱼类和腐肉，在食物匮乏时会跟随北极熊觅食其剩余猎物。</p><p><strong>繁殖：</strong>每年春季繁殖，每窝可产6-12只幼崽，有时甚至更多。幼崽在出生后约3个月独立。</p><p><strong>寿命：</strong>野外寿命约3-6年，圈养可达14年。</p>` },
+      'green-turtle': { title: '绿海龟', image: 'https://picsum.photos/id/1003/600/400', category: '爬行动物', habitat: '热带海域', diet: '草食性', description: `<p>绿海龟是一种大型海龟，成年体长可达1米，体重可达150公斤。尽管名为"绿"海龟，它们的背甲通常呈棕色或橄榄色，而腹部呈黄白色，其名字来源于它们体内绿色的脂肪。</p><p>绿海龟是唯一一种完全以植物为食的海龟，这使它们在海龟中显得独特。</p>`, additional: `<p><strong>生活习性：</strong>绿海龟大部分时间生活在浅海沿岸的海草床和珊瑚礁区域。它们是优秀的游泳者，能长时间潜水，一次可潜水数小时。</p><p><strong>繁殖：</strong>雌性绿海龟每隔2-5年回到它们出生的海滩产卵，每窝可产100-200枚卵。孵化期约2个月，幼龟孵化后需自行爬向大海。</p><p><strong>寿命：</strong>可达80年以上。</p><p><strong>保护状况：</strong>绿海龟被列为濒危物种，面临栖息地丧失、过度捕捞、塑料污染和气候变化等威胁。许多国家已采取保护措施。</p>` },
+      'tibetan-antelope': { title: '藏羚羊', image: 'https://picsum.photos/id/1000/600/400', category: '哺乳动物', habitat: '青藏高原', diet: '草食性', description: `<p>藏羚羊是中国青藏高原特有的濒危哺乳动物，也是国家一级保护动物。它们体型纤细，体长约135厘米，肩高约80厘米，体重35-40公斤。</p><p>雄性藏羚羊有细长的黑色角，长达50-60厘米，而雌性无角。它们的毛皮呈淡棕色，腹部白色，冬季毛色变厚为灰白色。</p>`, additional: `<p><strong>适应能力：</strong>藏羚羊能在海拔3700-5500米的高原寒冷环境中生存，它们的鼻腔宽大，可加热吸入的冷空气，血液中红细胞含量高，能适应低氧环境。</p><p><strong>迁徙行为：</strong>藏羚羊有长途迁徙的习性，每年夏季雌性会迁徙到特定的产羔地繁殖，之后再返回越冬地，迁徙距离可达数百公里。</p><p><strong>保护状况：</strong>由于非法盗猎（为获取其珍贵的羊绒），藏羚羊数量曾从20世纪初的百万只锐减至90年代的不足7万只。经过严格保护，目前数量已恢复至约30万只。</p><p><strong>文化意义：</strong>藏羚羊是青藏高原生态系统的标志性物种，也是北京2008年奥运会吉祥物"迎迎"的原型。</p>` },
+      'bottlenose-dolphin': { title: '宽吻海豚', image: 'https://picsum.photos/id/1074/600/400', category: '哺乳动物', habitat: '全球温带和热带海域', diet: '肉食性', description: `<p>宽吻海豚是最常见的海豚种类之一，也是人们最熟悉的海洋哺乳动物之一。它们体长约2-4米，体重约150-650公斤，寿命可达40-50年。</p><p>宽吻海豚以其聪明才智、友好的性格和出色的适应能力而闻名，它们是海洋馆中最常见的表演动物之一。</p>`, additional: `<p><strong>智力与沟通：</strong>宽吻海豚拥有高度发达的大脑，具有复杂的社会结构和沟通能力。它们通过发出各种声音（包括著名的"口哨声"）进行交流，每只海豚都有独特的"名字"口哨声。</p><p><strong>生活习性：</strong>宽吻海豚通常以10-30只的群体生活，有时会形成更大的群体。它们是优秀的游泳者，时速可达40公里，能跳出水面2-3米高。</p><p><strong>食性：</strong>主要以鱼类和头足类动物为食，通过回声定位来探测猎物。</p><p><strong>与人类关系：</strong>宽吻海豚对人类通常表现出好奇和友好，有时会主动靠近船只。它们在海洋生态系统中扮演着重要角色，也是海洋保护的旗舰物种。</p>` },
+      'brown-bear': { title: '棕熊', image: 'https://picsum.photos/id/1062/600/400', category: '哺乳动物', habitat: '北半球温带至寒带地区', diet: '杂食性', description: `<p>棕熊是陆地上最大的食肉目动物之一，体型庞大，成年雄性体长可达2.5米，肩高1.5米，体重可达600公斤以上，雌性体型较小。</p><p>棕熊的毛色多样，从浅棕色到深棕色不等，有些个体带有银色尖端，呈现出灰棕色外观。它们拥有强壮的四肢和长长的爪子，适合挖掘。</p>`, additional: `<p><strong>生活习性：</strong>棕熊通常独居，除了繁殖季节和母熊带崽期间。它们是杂食性动物，食物包括植物、浆果、坚果、昆虫、鱼类和小型哺乳动物，有时也会捕食大型有蹄类动物。</p><p><strong>冬眠：</strong>在寒冷地区，棕熊会在冬季进入洞穴冬眠，期间体温降低，代谢减缓，依靠储存的脂肪生存。</p><p><strong>繁殖：</strong>棕熊在夏季交配，妊娠期约6-8个月，每胎产1-4只幼崽，幼崽出生时非常小，约500克重，会与母亲生活2-3年。</p><p><strong>保护状况：</strong>全球棕熊种群数量呈下降趋势，主要受栖息地丧失和人类活动影响。不同亚种的保护状况差异较大，总体被列为无危物种，但许多地区的种群需要保护。</p>` },
+      'african-elephant': { title: '非洲象', image: 'https://picsum.photos/id/1002/600/400', category: '哺乳动物', habitat: '非洲撒哈拉以南地区', diet: '草食性', description: `<p>非洲象是陆地上最大的哺乳动物，成年雄性肩高可达3.3米，体重可达6吨，雌性稍小。它们是非洲草原和森林生态系统的关键物种。</p><p>非洲象最显著的特征是它们长长的鼻子（ trunk ）和巨大的耳朵，耳朵形状类似非洲大陆。它们的鼻子是高度灵活的器官，用于抓取食物、吸水、交流和触摸。</p>`, additional: `<p><strong>社会结构：</strong>非洲象生活在以母象为中心的复杂社会群体中，由母象和它们的后代组成，群体规模通常为10-20头。成年雄象通常独居或组成小的单身群体。</p><p><strong>食性：</strong>非洲象每天需要消耗约150公斤的植物性食物，包括草、树叶、树皮、树枝和果实。它们每天花费约16小时进食，能为许多其他物种创造栖息地。</p><p><strong>寿命：</strong>野外可达70年，与人类寿命相当。</p><p><strong>保护状况：</strong>非洲象被列为濒危物种，面临偷猎（为获取象牙）和栖息地丧失的严重威胁。尽管国际象牙贸易已被禁止，但非法贸易仍然猖獗。许多非洲国家建立了保护区来保护这一标志性物种。</p>` },
+      'gray-wolf': { title: '灰狼', image: 'https://picsum.photos/id/1005/600/400', category: '哺乳动物', habitat: '广泛分布于北美、欧亚大陆', diet: '肉食性', description: `<p>灰狼，也称为 timber wolf ，是犬科动物中最大的野生成员，与家犬有密切的亲缘关系。成年灰狼体长约1-1.6米，肩高0.6-0.9米，体重30-60公斤。</p><p>灰狼的毛色多样，从白色到黑色不等，最常见的是灰色，这也是它们得名的原因。它们拥有强大的颚部和锋利的牙齿，咬合力可达1500牛顿。</p>`, additional: `<p><strong>社会结构：</strong>灰狼具有高度的社会性，通常以5-12只个体组成的狼群生活，狼群有严格的等级制度，由一对 alpha 狼（通常是最强壮的雄狼和雌狼）领导。</p><p><strong>捕猎行为：</strong>狼群通常合作捕猎，能够猎杀比它们大得多的猎物，如鹿、驼鹿、野牛等。它们的奔跑速度可达每小时60公里，耐力惊人。</p><p><strong>沟通方式：</strong>灰狼通过声音（嚎叫、吠叫、呜咽）、身体语言和气味标记进行交流。它们的嚎叫可以在数公里外听到，用于宣告领地、召集同伴或与其他狼群保持距离。</p><p><strong>保护状况：</strong>曾经因人类活动而在许多地区灭绝，但通过保护和重新引入项目，在部分地区已恢复种群。目前全球种群状况总体稳定，但在一些地区仍面临威胁。</p>` },
+      'fruit-bat': { title: '果蝠', image: 'https://picsum.photos/id/1024/600/400', category: '哺乳动物', habitat: '热带和亚热带地区', diet: '植食性', description: `<p>果蝠，也称为飞狐，是最大的蝙蝠种类，属于狐蝠科。它们的体型差异很大，小型种类翼展约30厘米，而大型种类如马来大狐蝠翼展可达1.8米，是世界上最大的蝙蝠。</p><p>与大多数蝙蝠不同，果蝠通常视力良好，主要依靠视觉和嗅觉来寻找食物，而不是回声定位。它们的面部特征与狐狸相似，因而得名。</p>`, additional: `<p><strong>食性：</strong>果蝠主要以水果、花蜜和花粉为食。它们用锋利的牙齿咬开果实，然后舔食果肉和汁液。在取食花蜜时，它们也扮演着重要的传粉者角色。</p><p><strong>生态作用：</strong>果蝠是热带生态系统中重要的种子传播者和传粉者。它们食用水果后，通过排便将种子传播到新的区域，有助于森林的更新和扩张。许多热带植物依赖果蝠进行授粉。</p><p><strong>社会行为：</strong>果蝠通常在树上或洞穴中形成大型栖息地，有时可达数千只个体。它们在白天休息，夜间活动觅食。</p><p><strong>与人类关系：</strong>果蝠在一些地区被视为农业害兽，因为它们会食用栽培水果。但它们在生态系统中的积极作用通常超过其负面影响。此外，果蝠也是一些传染病的潜在宿主。</p>` },
+      'peacock': { title: '蓝孔雀', image: 'https://picsum.photos/id/1069/600/400', category: '鸟类', habitat: '印度次大陆', diet: '杂食性', description: `<p>蓝孔雀是世界上最著名的鸟类之一，以其华丽的羽毛而闻名。它们是雉科动物，原产于印度次大陆，现已被引入到世界各地作为观赏鸟类。</p><p>雄性蓝孔雀拥有鲜艳的蓝色羽毛，最引人注目的是其长达1.5米的尾屏，上面有许多眼状斑点，用于求偶展示。雌性孔雀（ peahen ）则体型较小，羽毛呈灰褐色，没有长长的尾屏。</p>`, additional: `<p><strong>求偶行为：</strong>在繁殖季节，雄孔雀会展开其华丽的尾屏，进行复杂的展示行为，包括抖动尾羽产生声音，同时围绕雌孔雀跳舞。这种展示被认为是为了吸引雌性的注意，并展示自己的健康状况。</p><p><strong>食性：</strong>蓝孔雀是杂食性动物，食物包括种子、果实、昆虫、小型爬行动物和两栖动物等。</p><p><strong>繁殖：</strong>雌性蓝孔雀在地面上筑巢，每窝产卵4-8枚，孵化期约28天。雏鸟孵化后不久就能跟随母亲活动。</p><p><strong>文化意义：</strong>蓝孔雀在印度文化中具有特殊地位，是印度的国鸟。在许多文化中，孔雀象征着美丽、骄傲和不朽。孔雀的羽毛常被用于装饰和传统仪式。</p>` },
+      'emperor-penguin': { title: '帝企鹅', image: 'https://picsum.photos/id/1063/600/400', category: '鸟类', habitat: '南极洲', diet: '肉食性', description: `<p>帝企鹅是世界上最大的企鹅品种，成年帝企鹅身高可达1.2米，体重可达45公斤。它们是唯一一种在南极洲冬季繁殖的企鹅，能在零下60℃的极端寒冷环境中生存。</p><p>帝企鹅拥有流线型身体和密集的羽毛，可有效抵御寒冷。它们的背部羽毛呈黑色，腹部白色，颈部有黄色斑块，这是它们的显著特征。</p>`, additional: `<p><strong>适应能力：</strong>帝企鹅具有多种适应极端寒冷环境的特征，包括多层脂肪 insulation 、密集的羽毛（每平方厘米约70根）、减少皮肤暴露面积的紧凑体型，以及群体聚集取暖的行为。</p><p><strong>繁殖行为：</strong>帝企鹅的繁殖行为非常独特。雌性在冬季产卵后将卵交给雄性孵化，自己则前往海中觅食。雄性帝企鹅将卵放在脚上，用腹部的育儿袋覆盖保温，在约65天的孵化期内不进食，完全依靠储存的脂肪生存。</p><p><strong>潜水能力：</strong>帝企鹅是优秀的潜水者，能潜至500米深的海域，屏住呼吸长达22分钟，寻找鱼类、磷虾和鱿鱼等食物。</p><p><strong>保护状况：</strong>帝企鹅目前被列为近危物种，面临气候变化导致的海冰减少的威胁。据预测，如果全球变暖持续，到本世纪末帝企鹅数量可能减少一半以上。</p>` },
+      'macaw': { title: '金刚鹦鹉', image: 'https://picsum.photos/id/1071/600/400', category: '鸟类', habitat: '美洲热带地区', diet: '植食性', description: `<p>金刚鹦鹉是色彩最鲜艳的大型鹦鹉，属于鹦鹉科。它们体型较大，体长可达80-100厘米，其中尾巴占身体长度的一半以上。</p><p>金刚鹦鹉以其鲜艳的羽毛、强大的喙和长长的尾巴而闻名。不同种类的金刚鹦鹉有不同的颜色组合，包括蓝色、黄色、红色、绿色等，非常引人注目。</p>`, additional: `<p><strong>智力与学习能力：</strong>金刚鹦鹉是最聪明的鸟类之一，具有出色的学习能力和记忆力。它们能模仿人类语言和其他声音，有些个体可以学会数百个词汇。它们也能解决简单的问题，表现出较高的认知能力。</p><p><strong>社会行为：</strong>金刚鹦鹉是群居动物，通常成对或小群体活动。它们非常社会化，通过各种叫声进行交流。它们也是终身配偶制，对伴侣非常忠诚。</p><p><strong>食性：</strong>主要以坚果、种子、果实和浆果为食。它们拥有强大的喙，能够轻易咬开坚硬的坚果外壳。</p><p><strong>寿命与保护：</strong>金刚鹦鹉寿命很长，可达50-80年。由于栖息地破坏和非法宠物贸易，许多种类的金刚鹦鹉已成为濒危物种，受到国际保护。</p>` },
+      'mute-swan': { title: '疣鼻天鹅', image: 'https://picsum.photos/id/1084/600/400', category: '鸟类', habitat: '欧洲、亚洲和非洲北部', diet: '草食性', description: `<p>疣鼻天鹅是一种大型水鸟，体长约1.5米，翼展可达2.4米，体重可达15公斤，是欧洲最大的水鸟之一。</p><p>疣鼻天鹅以其优雅的姿态而闻名，它们拥有洁白的羽毛、细长的脖子和橙色的喙，雄鸟的喙基部有一个黑色的疣状突起，这也是它们得名的原因。</p>`, additional: `<p><strong>行为特征：</strong>尽管名为"疣鼻天鹅"，它们并非完全沉默，能发出低沉的叫声，尤其是在繁殖季节或受到威胁时。它们是优秀的游泳者，但起飞时需要在水面上助跑一段距离。</p><p><strong>繁殖：</strong>疣鼻天鹅通常在靠近水边的芦苇丛中筑巢，巢非常大，直径可达1.5米。每窝产卵5-7枚，孵化期约35天，由雌鸟主要负责孵化，雄鸟守护领地。</p><p><strong>食性：</strong>主要以水生植物、水草、藻类为食，它们会将长长的脖子伸入水中觅食，有时也会将身体倒立起来获取水底的食物。</p><p><strong>文化意义：</strong>疣鼻天鹅在欧洲文化中象征着纯洁、爱情和优雅，常被用于艺术作品和文学作品中。它们也是许多公园和湖泊中的观赏鸟类，深受人们喜爱。</p>` },
+      'snowy-owl': { title: '雪鸮', image: 'https://picsum.photos/id/1056/600/400', category: '鸟类', habitat: '北极地区', diet: '肉食性', description: `<p>雪鸮是一种大型猫头鹰，是北极地区的标志性鸟类之一。成年雪鸮体长约50-60厘米，翼展可达1.5米，体重1.6-3公斤。</p><p>雪鸮最显著的特征是其洁白的羽毛，这使它们能很好地融入北极的雪地环境。雄性雪鸮通常几乎全白，而雌性和幼鸟则有更多的暗色斑点。它们的眼睛呈亮黄色，与白色羽毛形成鲜明对比。</p>`, additional: `<p><strong>适应能力：</strong>雪鸮适应极端寒冷的北极环境，它们拥有浓密的羽毛，甚至腿部和脚部都被羽毛覆盖，能在零下50℃的低温中生存。它们的羽毛也是很好的绝缘体，能有效保持体温。</p><p><strong>捕猎行为：</strong>雪鸮主要在白天活动，这与大多数猫头鹰不同。它们主要捕食旅鼠，一只雪鸮一年可吃掉约1600只旅鼠。它们也会捕食其他小型哺乳动物、鸟类和鱼类。</p><p><strong>迁徙：</strong>雪鸮是部分迁徙的鸟类，它们的迁徙模式与猎物数量密切相关。在旅鼠数量稀少的年份，它们会向南迁徙寻找食物。</p><p><strong>繁殖：</strong>雪鸮在北极苔原上筑巢，通常直接在地面上产卵，每窝产卵数量取决于食物供应情况，从3-11枚不等。孵化期约32天，由雌鸟负责孵化，雄鸟负责觅食。</p>` },
+      'green-anaconda': { title: '绿森蚺', image: 'https://picsum.photos/id/1019/600/400', category: '爬行动物', habitat: '南美洲热带雨林', diet: '肉食性', description: `<p>绿森蚺是世界上最大的蛇类之一，以体重和 girth 著称，虽然网纹蟒可能更长，但绿森蚺通常更重。成年雌性绿森蚺体长可达5-6米，体重可达100公斤以上，雄性则较小。</p><p>绿森蚺的背部呈橄榄绿色，有黑色的椭圆形斑点，腹部呈黄色，有黑色斑点。它们的眼睛和鼻孔位于头部顶部，这使它们能在水中隐藏时仍能观察和呼吸。</p>`, additional: `<p><strong>生活习性：</strong>绿森蚺主要栖息在河流、沼泽和热带雨林的水域附近，是优秀的游泳者，能在水中待很长时间。它们通常在夜间活动觅食，但也会在白天晒太阳取暖。</p><p><strong>捕猎与进食：</strong>绿森蚺是伏击型掠食者，它们会潜伏在水中或水边，等待猎物靠近时突然发动攻击，用强大的身体将猎物缠绕窒息后整个吞下。它们的猎物包括水豚、鹿、凯门鳄、鸟类和其他小型哺乳动物。进食一次后，它们可以数周甚至数月不进食。</p><p><strong>繁殖：</strong>绿森蚺是卵胎生的，雌蛇一次可产下20-40条幼蛇，有时甚至更多。幼蛇出生时体长约60厘米，出生后即能独立生活。</p><p><strong>与人类关系：</strong>尽管绿森蚺体型庞大，但对人类的攻击非常罕见。它们在其生态系统中扮演着顶级掠食者的角色，有助于控制猎物种群数量。</p>` },
+      'komodo-dragon': { title: '科莫多龙', image: 'https://picsum.photos/id/1058/600/400', category: '爬行动物', habitat: '印度尼西亚巽他群岛', diet: '肉食性', description: `<p>科莫多龙，也称为科莫多巨蜥，是世界上最大的蜥蜴，成年雄性体长可达3米，体重可达70公斤。它们仅分布在印度尼西亚的几个小岛上，包括科莫多岛、林卡岛等。</p><p>科莫多龙的皮肤粗糙，呈灰褐色，布满了坚硬的鳞片。它们拥有强大的四肢、长长的尾巴和锋利的爪子，以及充满锯齿状牙齿的强大颚部。</p>`, additional: `<p><strong>捕猎方式：</strong>科莫多龙是顶级掠食者，它们的猎物包括鹿、野猪、水牛、猴子等大型动物，甚至会捕食同类。它们的捕猎方式独特，会咬伤猎物，然后跟踪受伤的猎物，直到猎物因伤口感染或失血过多而死亡。</p><p><strong>毒液与细菌：</strong>科莫多龙的唾液中含有多种致命细菌和毒液，被咬伤的猎物会迅速出现感染和血压下降等症状。研究表明，它们的毒液在捕猎中起主要作用，而非仅仅依靠细菌感染。</p><p><strong>繁殖：</strong>科莫多龙在每年的5-8月繁殖，雌性会在地上筑巢，有时会利用鸟类废弃的巢穴。每窝产卵20-30枚，孵化期约8个月。幼龙孵化后会爬到树上躲避成年龙的捕食。</p><p><strong>保护状况：</strong>科莫多龙被列为濒危物种，目前野外数量约5000头左右。它们受到印度尼西亚政府的严格保护，科莫多岛已建立国家公园来保护这一独特物种。</p>` },
+      'galapagos-tortoise': { title: '加拉帕戈斯象龟', image: 'https://picsum.photos/id/1050/600/400', category: '爬行动物', habitat: '加拉帕戈斯群岛', diet: '草食性', description: `<p>加拉帕戈斯象龟是世界上最大的陆龟，也是最长寿的脊椎动物之一。成年象龟体长可达1.5米，体重可达400公斤，寿命可达100年以上，有记录的最长寿个体超过170岁。</p><p>加拉帕戈斯象龟因分布在加拉帕戈斯群岛的不同岛屿上，演化出了多种不同的亚种，主要区别在于龟壳的形状，包括圆顶形和马鞍形两种主要类型。</p>`, additional: `<p><strong>适应特征：</strong>加拉帕戈斯象龟具有多种适应干旱环境的特征，它们可以长时间不进食不饮水，依靠储存的脂肪和水分生存。在雨季，它们会大量进食，储存能量和水分。它们的膀胱可以储存大量水分，在干旱时使用。</p><p><strong>食性：</strong>完全草食性，以仙人掌、草、树叶、苔藓和浆果为食。它们每天需要消耗约32公斤的植物。</p><p><strong>繁殖：</strong>雌性象龟会在地上挖掘巢穴，产卵10-20枚，孵化期约4-8个月，取决于温度。幼龟孵化后需自行挖掘出巢，面临多种捕食者的威胁。</p><p><strong>保护状况：</strong>加拉帕戈斯象龟曾因捕猎和引入外来物种而数量锐减，多个亚种已经灭绝。通过保护项目，包括圈养繁殖和重新引入，现存亚种的数量正在恢复。著名的"孤独的乔治"是平塔岛亚种的最后一个个体，于2012年去世。</p>` },
+      'panther-chameleon': { title: '豹纹变色龙', image: 'https://picsum.photos/id/1073/600/400', category: '爬行动物', habitat: '马达加斯加', diet: '昆虫食性', description: `<p>豹纹变色龙是马达加斯加特有的一种色彩鲜艳的变色龙，以其丰富多变的体色而闻名。成年雄性体长可达20-50厘米，雌性通常较小，约15-30厘米。</p><p>与许多其他变色龙不同，豹纹变色龙的颜色变化非常显著，不同地区的种群有不同的基本颜色，包括绿色、蓝色、红色、橙色等。它们的颜色会根据情绪、健康状况、温度和繁殖状态而变化。</p>`, additional: `<p><strong>变色机制：</strong>豹纹变色龙的变色并非通过色素细胞的扩散或收缩，而是通过皮肤中的虹彩细胞（ iridophores ）来实现。这些细胞含有微小的晶体，可以反射不同波长的光线，从而产生颜色变化。</p><p><strong>生活习性：</strong>豹纹变色龙是树栖动物，主要生活在热带雨林和干燥森林中。它们的尾巴可以卷曲，用于抓握树枝，两只眼睛可以独立转动，使它们能同时观察两个不同的方向。</p><p><strong>食性：</strong>主要以昆虫为食，包括蟋蟀、蚱蜢、蝴蝶等。它们通过长长的粘性舌头快速捕捉猎物，舌头的长度可以达到身体长度的两倍。</p><p><strong>繁殖：</strong>雌性豹纹变色龙在交配后约30天会下蛋，每窝可产10-40枚卵，孵化期长达6-12个月，是爬行动物中孵化期最长的物种之一。</p>` },
+      'king-cobra': { title: '眼镜王蛇', image: 'https://picsum.photos/id/1055/600/400', category: '爬行动物', habitat: '东南亚和印度次大陆', diet: '肉食性', description: `<p>眼镜王蛇是世界上最长的毒蛇，成年个体体长可达3-5.5米，体重可达6公斤。它们虽然名字中有"眼镜蛇"，但实际上属于独立的眼镜王蛇属，与普通眼镜蛇有所不同。</p><p>眼镜王蛇的身体呈橄榄绿色、棕色或黑色，带有浅黄色的环状斑纹。它们最显著的特征是头部后方没有普通眼镜蛇那样的扩大的"眼镜"斑纹，而是有一对浅色的V形斑纹。</p>`, additional: `<p><strong>毒液：</strong>眼镜王蛇的毒液含有神经毒素，一次咬伤可注入大量毒液，足以杀死一头大象或20-30个成年人。被咬伤后，受害者会出现麻痹、呼吸衰竭，如不及时治疗，通常在30分钟至2小时内死亡。</p><p><strong>食性：</strong>眼镜王蛇是唯一一种主要以其他蛇类为食的蛇类，包括毒蛇和无毒蛇。它们也会偶尔捕食蜥蜴和小型哺乳动物。</p><p><strong>繁殖行为：</strong>眼镜王蛇是唯一一种会筑巢的蛇类。雌性会收集落叶和植被，筑成一个直径约1米的巢穴，产卵20-50枚，并守护巢穴直至幼蛇孵化，这在蛇类中是非常独特的行为。</p><p><strong>与人类关系：</strong>尽管眼镜王蛇毒性极强，但它们通常会避免与人类接触，主动攻击人类的情况相对较少。在一些亚洲文化中，眼镜王蛇被视为神圣的动物或具有特殊力量的象征。</p>` }
+    };
+
+    // 模态框相关元素
+    const modal = document.getElementById('animal-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalImage = document.getElementById('modal-image');
+    const modalCategory = document.getElementById('modal-category');
+    const modalHabitat = document.getElementById('modal-habitat');
+    const modalDiet = document.getElementById('modal-diet');
+    const modalDescription = document.getElementById('modal-description');
+    const modalAdditional = document.getElementById('modal-additional');
+    const closeModal = document.getElementById('close-modal');
+
+    // 打开模态框
+    function openModal(animalId) {
+      const animal = animalData[animalId];
+      if (!animal) return;
+      
+      modalTitle.textContent = animal.title;
+      modalImage.src = animal.image;
+      modalImage.alt = animal.title;
+      modalCategory.textContent = animal.category;
+      modalHabitat.textContent = animal.habitat;
+      modalDiet.textContent = animal.diet;
+      modalDescription.innerHTML = animal.description;
+      modalAdditional.innerHTML = animal.additional;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // 防止背景滚动
+    }
+
+    // 关闭模态框
+    function closeModalFunc() {
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // 恢复背景滚动
+    }
+
+    // 为所有详情按钮添加点击事件
+    document.querySelectorAll('.animal-detail').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const animalId = this.getAttribute('data-animal');
+        openModal(animalId);
+      });
+    });
+
+    // 关闭模态框按钮事件
+    closeModal.addEventListener('click', closeModalFunc);
+
+    // 点击模态框背景关闭模态框
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModalFunc();
+      }
+    });
+
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModalFunc();
+      }
+    });
+
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // 切换图标
+      const icon = menuToggle.querySelector('i');
+      if (icon.classList.contains('fa-bars')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+      } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+      }
+    });
+    
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('py-2', 'shadow');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow');
+      }
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单（如果打开）
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          const icon = menuToggle.querySelector('i');
+          icon.classList.replace('fa-times', 'fa-bars');
+        }
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 分类筛选按钮交互
+    document.querySelectorAll('.category-filter').forEach(button => {
+      button.addEventListener('click', function() {
+        // 找到同一组中的所有按钮
+        const siblings = this.parentElement.querySelectorAll('.category-filter');
+        
+        // 移除所有按钮的活跃状态
+        siblings.forEach(btn => {
+          if (btn.classList.contains('bg-primary')) {
+            btn.classList.remove('bg-primary', 'text-white');
+            btn.classList.add('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          } else if (btn.classList.contains('bg-secondary')) {
+            btn.classList.remove('bg-secondary', 'text-white');
+            btn.classList.add('bg-neutral-100', 'text-neutral-800', 'hover:bg-neutral-200');
+          } else if (btn.classList.contains('bg-neutral-800')) {
+            btn.classList.remove('bg-neutral-800', 'text-white');
+            btn.classList.add('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          }
+        });
+        
+        // 设置当前按钮为活跃状态
+        if (this.parentElement.closest('section#mammals')) {
+          this.classList.remove('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-primary', 'text-white');
+        } else if (this.parentElement.closest('section#birds')) {
+          this.classList.remove('bg-neutral-100', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-secondary', 'text-white');
+        } else if (this.parentElement.closest('section#reptiles')) {
+          this.classList.remove('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-neutral-800', 'text-white');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
