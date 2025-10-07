@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Insect Guide - The High School Affiliated to Renmin University of China</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2E7D32', // 自然绿作为主色调
+            secondary: '#FF8F00', // 暖橙色作为强调色
+            neutral: {
+              100: '#F5F5F5',
+              200: '#EEEEEE',
+              800: '#263238',
+              900: '#1A237E'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+      }
+      .bg-gradient-natural {
+        background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+      }
+      .modal-backdrop {
+        @apply fixed inset-0 bg-black/50 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300;
+      }
+      .modal-backdrop.active {
+        @apply opacity-100 visible;
+      }
+      .modal-content {
+        @apply bg-white rounded-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto transform translate-y-8 transition-all duration-300;
+      }
+      .modal-backdrop.active .modal-content {
+        @apply translate-y-0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-100 font-sans text-neutral-800">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center space-x-2">
+        <i class="fa fa-bug text-primary text-2xl"></i>
+        <span class="text-xl font-bold text-primary">Campus Insect Guide</span>
+      </a>
+      
+      <!-- 桌面端导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <!--
+        <a href="#home" class="font-medium hover:text-primary transition-colors">Home Page</a>
+        <a href="#Sky-Garden" class="font-medium hover:text-primary transition-colors"> | Sky Garden</a>
+        <a href="#Central-Gardens" class="font-medium hover:text-primary transition-colors"> | Central Gardens</a>
+        <a href="#Linjian-Building" class="font-medium hover:text-primary transition-colors"> | Linjian Building</a>
+        <a href="#West-Campus-Wall" class="font-medium hover:text-primary transition-colors"> | West Campus Wall</a>
+        <a href="#Other-Regions" class="font-medium hover:text-primary transition-colors"> | Other Areas</a>
+        <a href="#About-Us" class="font-medium hover:text-primary transition-colors"> | About Us</a>
+        -->
+        <table class="w-full border-collapse">
+          <tr>
+            <!-- 第一列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#home" class="font-medium hover:text-primary transition-colors">Home Page</a>
+            </td>
+            <!-- 第二列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Sky-Garden" class="font-medium hover:text-primary transition-colors">Sky Garden</a>
+            </td>
+            <!-- 第三列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Central-Gardens" class="font-medium hover:text-primary transition-colors">Central Gardens</a>
+            </td>
+            <!-- 第四列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Linjian-Building" class="font-medium hover:text-primary transition-colors">Linjian Building</a>
+            </td>
+            <!-- 第五列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#West-Campus-Wall" class="font-medium hover:text-primary transition-colors">West Campus Wall</a>
+            </td>
+            <!-- 第六列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Other-Areas" class="font-medium hover:text-primary transition-colors">Other Areas</a>
+            </td>
+            <!-- 第七列（最后一列无右侧边框） -->
+            <td class="px-4 py-2 text-center">
+              <a href="#About-Us" class="font-medium hover:text-primary transition-colors">About Us</a>
+            </td>
+          </tr>
+        </table>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden p-2 rounded-full hover:bg-neutral-200 transition-colors">
+        <i class="fa fa-bars text-neutral-800"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <!--
+        <a href="#home" class="py-2 font-medium hover:text-primary transition-colors">首页</a>
+        <a href="#Sky-Garden" class="py-2 font-medium hover:text-primary transition-colors">空中花园</a>
+        <a href="#Central-Gardens" class="py-2 font-medium hover:text-primary transition-colors">中心花园</a>
+        <a href="#Linjian-Building" class="py-2 font-medium hover:text-primary transition-colors">临建楼</a>
+        <a href="#West-Campus-Wall" class="py-2 font-medium hover:text-primary transition-colors">西侧围墙/宿舍楼</a>
+       <a href="#Other-Areas" class="py-2 font-medium hover:text-primary transition-colors">其它区域</a>
+        <a href="#About-Us" class="py-2 font-medium hover:text-primary transition-colors">关于我</a>
+        <div class="relative mt-2">
+          <input type="text" placeholder="搜索图鉴..." class="w-full py-2 px-4 pr-10 rounded-lg border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary/50">
+          <i class="fa fa-search absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+        </div>
+        -->
+        <table class="w-full border-collapse">
+          <tr>
+            <!-- 第一列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#home" class="font-medium hover:text-primary transition-colors">Home Page</a>
+            </td>
+            <!-- 第二列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Sky-Garden" class="font-medium hover:text-primary transition-colors">Sky Garden</a>
+            </td>
+            <!-- 第三列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Central-Gardens" class="font-medium hover:text-primary transition-colors">Central Gardens</a>
+            </td>
+            <!-- 第四列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Linjian-Building" class="font-medium hover:text-primary transition-colors">Linjian Building</a>
+            </td>
+            <!-- 第五列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#West-Campus-Wall" class="font-medium hover:text-primary transition-colors">West Campus Wall</a>
+            </td>
+            <!-- 第六列 -->
+            <td class="px-4 py-2 text-center border-r border-emerald-800">
+              <a href="#Other-Areas" class="font-medium hover:text-primary transition-colors">Other Areas</a>
+            </td>
+            <!-- 第七列（最后一列无右侧边框） -->
+            <td class="px-4 py-2 text-center">
+              <a href="#About-Us" class="font-medium hover:text-primary transition-colors">About Us</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首页区域 -->
+  <section id="home" class="pt-20 md:pt-0 min-h-screen flex items-center bg-gradient-natural text-white">
+    <table border="0" style="border-collapse: collapse; width: 100%;" >
+      <!-- 第一行 -->
+      <tr>
+        <td  rowspan="2" style="padding: 8px;">
+          <div class="max-w-3xl">
+            <h1 class="text-4xl font-bold mb-6 leading-tight">
+              Explore the Fascinating World of Campus Insects
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-white/90">
+              Document the stunning diversity of insects on campus and share their beauty and wonder.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a href="#Sky-Garden" class="px-6 py-3 bg-white text-primary font-medium rounded-lg hover:bg-neutral-100 transition-colors shadow-lg">
+                Explore Now
+              </a>
+              <a href="#About-Us" class="px-6 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
+                了解更多
+              </a>
+            </div>
+          </div>
+        </td>
+        <td colspan="2" style="padding: 8px;">
+          <div class="h-full overflow-hidden">
+            <img src="Picture/school-Icon.png" alt="Ceratina hieroglyphica" class="w-full h-full object-cover transition-transform duration-440 hover:scale-100">
+          </div>
+        </td>
+      </tr>
+      <!-- 第二行 -->
+      <tr>
+        <td colspan="2" style="padding: 8px;  display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+          <img src="Picture/1-Icon.png" style="vertical-align: middle;"><a href="#Sky-Garden" class="py-2 font-medium hover:text-primary transition-colors">Sky Garden</a> 
+          <img src="Picture/2-Icon.png" style="vertical-align: middle;"><a href="#Central-Gardens" class="py-2 font-medium hover:text-primary transition-colors">Central Gardens</a>
+          <img src="Picture/3-Icon.png" style="vertical-align: middle;"><a href="#Linjian-Building" class="py-2 font-medium hover:text-primary transition-colors">Linjian Building</a>
+          <img src="Picture/4-Icon.png" style="vertical-align: middle;"><a href="#West-Campus-Wall" class="py-2 font-medium hover:text-primary transition-colors">West Campus Wall</a>
+          <img src="Picture/5-Icon.png" style="vertical-align: middle;"><img src="Picture/6-Icon.png" style="vertical-align: middle;"><a href="#Other-Areas" class="py-2 font-medium hover:text-primary transition-colors">Other Areas</a>
+
+        </td>
+      </tr>
+    </table>
+    <div class="absolute -bottom-0 left-1/2 -translate-x-1/2 animate-bounce">
+      <a href="#featured" class="text-white/70 hover:text-white transition-colors">
+        <i class="fa fa-angle-down text-2xl"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 精选图鉴 -->
+  <section id="featured" class="py-10 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 text-primary">Featured Collection Insect Guide</h2>
+          <p class="text-neutral-600 text-primary">Discover the Wonders of Insects: Fun Facts</p>
+        </div>
+        
+      </div>      
+      
+      <!-- 网格布局卡片 -->
+      <div id="featured-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 图鉴卡片 1 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Ceratina-hieroglyphica.png" alt="Ceratina hieroglyphica" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Ceratina hieroglyphica</h3>
+                  <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full">Hymenoptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">Small carpenter bees (Ceratina) are typically dark, shiny, often metallic-looking bees with sparse body hair. They are small in size and commonly have yellow markings, especially on the face, which often leads to them being mistaken for sweat bees.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Sky Garden</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Ceratina-hieroglyphica">More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 图鉴卡片 2 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Canthophorus-niveimarginatus.png" alt="Canthophorus niveimarginatus" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Canthophorus niveimarginatus</h3>
+                  <span class="bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded-full">Hemiptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">True bugs (Hemiptera) are characterized by piercing-sucking mouthparts formed into a beak-like "rostrum," and forewings that are often partially hardened at the base and membranous at the tips—a feature that gives the order its name, "half-winged."</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Sky Garden</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Canthophorus-niveimarginatus">More</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 图鉴卡片 3 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Pselliophora-bifascipennis.png" alt="北极狐" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Pselliophora bifascipennis</h3>
+                  <span class="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded-full">Diptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">Crane flies in the family Tipulidae are characterized by their long maxillary palps (appendages near the mouth), where the fourth segment is longer than the first three combined. They also typically have 13 segments in their antennae.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Central Gardens</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Pselliophora-bifascipennis">More</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 图鉴卡片 4 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Clogmia-albipunctata.png" alt="Clogmia albipunctata" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Clogmia albipunctata</h3>
+                  <span class="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded-full">Diptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">The white-dotted drain fly (Clogmia albipunctata) is a very small (about 2–3 mm), moth-like insect with broad, hairy wings marked with distinct black and white spots, and a body covered in fine grayish hairs.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i>West Campus Wall</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Clogmia-albipunctata">More</a>
+                </div>
+              </div>
+            </div>
+                        
+            <!-- 图鉴卡片 5 -->
+            <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Yemma-exilis.png" alt="Yemma exilis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Yemma exilis</h3>
+                  <span class="bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded-full">Hemiptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">Stilt bugs (Berytidae) are extremely slender insects with remarkably long, thin legs and antennae that often have a distinctive club-like swelling at the tip. Their bodies are typically brown to yellow, and some species have slight swellings at the ends of their leg segments.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Sky Garden/Central Gardens</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Yemma-exilis">More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 图鉴卡片 6 -->
+            <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Attulus-fasciger.png" alt="Yemma exilis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Attulus fasciger</h3>
+                  <span class="bg-secondary/10 text-secondary text-sm px-2 py-1 rounded-full">Araneae</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">Attulus fasciger is a small (3-4 mm), brownish-black jumping spider with the characteristic eight eyes of its family. Males and females are similar in size, but males have a more slender abdomen and larger, more prominent black palps.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> West Campus Wall</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Attulus-fasciger">More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 图鉴卡片 7 -->
+            <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Bronze-winged-Bamboo-Carpenter.png" alt="Bronze-winged Bamboo-Carpenter" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Bronze-winged Bamboo-Carpenter</h3>
+                  <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full">Hymenoptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">Carpenter bees (Xylocopa) are large, robust bees often confused with bumblebees. They are typically all black or black with some yellow/white hairs, and have a characteristic shiny, hairless abdomen, unlike the fully hairy abdomen of bumblebees.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Sky Garden</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Bronze-winged-Bamboo-Carpenter">More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 图鉴卡片 8 -->
+            <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Formica-cunicularia.png" alt="Formica cunicularia" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-bold">Formica cunicularia</h3>
+                  <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full">Hymenoptera</span>
+                </div>
+                <p class="text-neutral-600 mb-4 line-clamp-2">The worker ant of Formica cunicularia is an ashy grey-black color and measures 4.0–6.5 mm in length. The queens are larger (7.5–9.0 mm) and range from yellowish-red to dark black, while the males are uniformly dark and 8.0–9.0 mm long.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Around the Dormitory</span>
+                  <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Formica-cunicularia">More</a>
+                </div>
+              </div>
+            </div>
+        
+        <!-- 移动端查看全部按钮 -->
+        <div class="mt-6 text-center md:hidden">
+          <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+            查看全部 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <button id="view-all-btn" class="px-6 py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary/5 transition-colors">
+          Show More <i class="fa fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 空中花园分类 -->
+  <section id="Sky-Garden" class="py-10 bg-neutral-30">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center text-primary">
+            <i class="fa fa-tree mr-3 text-secondary"></i> Sky Garden
+          </h2>
+          <!-- <p class="text-neutral-600">恒温、有毛发、哺乳幼崽的脊椎动物</p> -->
+        </div>
+      </div>
+    
+      <!-- 网格布局卡片 -->
+      <div id="Sky-Garden-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 空中花园卡片 1 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Lasius-niger.png" alt="Lasius niger" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Lasius niger</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The black garden ant (Lasius niger), also known as the common black ant, is a formicine ant。</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Lasius-niger">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空中花园卡片 2 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Yemma-exilis.png" alt="Lasius niger" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Yemma exilis (adult insect)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Stilt bugs (Berytidae) are extremely slender insects with remarkably long, thin legs and antennae that often have a distinctive club-like swelling at the tip. Their bodies are typically brown to yellow, and some species have slight swellings at the ends of their leg segments.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Hemiptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Yemma-exilis">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空中花园卡片 3 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Canthophorus-niveimarginatus.png" alt="Canthophorus niveimarginatus" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Canthophorus niveimarginatus</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">True bugs (Hemiptera) are characterized by piercing-sucking mouthparts formed into a beak-like "rostrum," and forewings that are often partially hardened at the base and membranous at the tips—a feature that gives the order its name, "half-winged."</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Hemiptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Canthophorus-niveimarginatus">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空中花园卡片 4 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Chinese-Honey-Bee.png" alt="Chinese Honey Bee" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Chinese Honey Bee (Apis cerana)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Honey bees in general are characterized by a robust, hairy body, two pairs of wings, and a structure for collecting pollen on their hind legs. Workers have a sting used for defense.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Chinese-Honey-Bee">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空中花园卡片 5 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Coppery-Metallic-Furrow-Bee.png" alt="Coppery Metallic-Furrow Bee" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Coppery Metallic-Furrow Bee (Halictus aerarius)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Bees of the genus Halictus are typically black or dark brown, sometimes with a metallic greenish tint, and are characterized by distinctive whitish bands at the tip (apex) of their abdominal segments.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Coppery-Metallic-Furrow-Bee">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空中花园卡片 6 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Discomyza-incurva.png" alt="Discomyza incurva" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Discomyza incurva</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Discomyza incurva is a very small fly, only 2.5–3 mm in length, belonging to the shore fly family (Ephydridae).</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Discomyza-incurva">More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 空中花园卡片 7 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Ceratina-hieroglyphica.png" alt="Ceratina hieroglyphica" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Ceratina hieroglyphica</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Small carpenter bees (Ceratina) are typically dark, shiny, often metallic-looking bees with sparse body hair. They are small in size and commonly have yellow markings, especially on the face, which often leads to them being mistaken for sweat bees.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Ceratina-hieroglyphica">More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 空中花园卡片 8 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Bronze-winged-Bamboo-Carpenter.png" alt="Bronze-winged Bamboo-Carpenter" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Bronze-winged Bamboo-Carpenter(Xylocopa tranquebarorum)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Carpenter bees (Xylocopa) are large, robust bees often confused with bumblebees. They are typically all black or black with some yellow/white hairs, and have a characteristic shiny, hairless abdomen, unlike the fully hairy abdomen of bumblebees.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Bronze-winged-Bamboo-Carpenter">More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 空中花园卡片 9 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Hair-banded-Broad-nosed-Weevil.png" alt="Bronze-winged Bamboo-Carpenter" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Hair-banded Broad-nosed Weevil (Myosides seriehispidus)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">True weevils (urculionidae) are characterized by their distinctive downward-curved snout (rostrum) and elbowed antennae that end in small clubs. They have robust, often scaly or bristly bodies, and range in size from 1 to 35 mm.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded-full">Coleoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Hair-banded-Broad-nosed-Weevil">More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 空中花园卡片 10 -->
+        <div class="hidden w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Panaorus-csikii.png" alt="Panaorus csikii" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Panaorus csikii</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Members of the Rhyparochromidae family are small true bugs, typically brown or mottled in color. A common distinguishing feature is their enlarged fore femora (the upper part of the front legs).</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Hemiptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Panaorus-csikii">More</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button id="Sky-Garden-all-btn" class="px-6 py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary/5 transition-colors">
+          Show More <i class="fa fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 中心花园分类 -->
+  <section id="Central-Gardens" class="py-10 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center text-primary">
+            <i class="fa fa-tree mr-3 "></i> Central Gardens
+          </h2>
+          <!--p class="text-neutral-600">有羽毛、卵生、前肢演化成翼的脊椎动物</p-->
+        </div>
+      </div>
+      
+      <!-- 网格布局卡片 -->
+      <div id="Central-Gardens-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">      
+        <!-- 中心花园卡片 1 -->
+        <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Tetramorium-caespitum.png" alt="Tetramorium caespitum" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Tetramorium caespitum</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Tetramorium caespitum are typically small, reddish-brown ants commonly recognized by the grooves or lines on their head and thorax, and a stinger at the tip of their abdomen.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Tetramorium-caespitum">More</a>
+            </div>                
+          </div>
+        </div>
+        
+        <!-- 中心花园卡片 2 -->
+        <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Nylanderia-flavipes.png" alt="Nylanderia flavipes" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Nylanderia flavipes (Yellow-footed Ant)</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Nylanderia ants are small to medium-sized (1–4 mm) and range in color from pale yellow to black. Workers are generally uniform in appearance with a compact, robust body, six mandibular teeth, and characteristic erect hairs on their legs, antennae, and specific body segments.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Nylanderia-flavipes">More</a>
+            </div>                
+          </div>
+        </div>
+        
+        <!-- 中心花园卡片 3 -->
+        <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Yemma-exilis-1.png" alt="Tetramorium caespitum" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Yemma exilis (larva)</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Stilt bugs (Berytidae) are extremely slender insects with remarkably long, thin legs and antennae that often have a distinctive club-like swelling at the tip. Their bodies are typically brown to yellow, and some species have slight swellings at the ends of their leg segments.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Hemiptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Yemma-exilis-1">More</a>
+            </div>                
+          </div>
+        </div>
+        
+        <!-- 中心花园卡片 4 -->
+        <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Scaled-Hump-backed-Fly.png" alt="Tetramorium caespitum" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Scaled Hump-backed Fly (Megaselia scalar)</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Megaselia scalaris is a very small (about 2 mm) yellowish fly with dark markings, a distinctive humpbacked profile, and translucent wings. Its mouthparts feature sharp teeth, and males have specialized structures at the tip of the abdomen.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Scaled-Hump-backed-Fly">More</a>
+            </div>                
+          </div>
+        </div>
+        
+        <!-- 中心花园卡片 5 -->
+        <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Piratula-piratoides.png" alt="Piratula piratoides" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Piratula piratoides</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Wolf spiders are robust, agile hunters with a body size ranging from less than 10 mm to 35 mm. They are easily identified by their unique eye arrangement: three rows of eyes, with the middle row containing two very large eyes that give them excellent vision.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full">Araneae</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Piratula-piratoides">More</a>
+            </div>                
+          </div>
+        </div>
+        
+        <!-- 中心花园卡片 6 -->
+        <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Eurystylus-costalis.png" alt="Eurystylus costalis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Eurystylus costalis</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Hydrotaea flies are small, typically 5.75–8.5 mm in length, with colors ranging from light brown to bluish-black. They have large red eyes, plumose antennae, and their larvae are carnivorous, often featuring ventral welts and large spiracles.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Hemiptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Eurystylus-costalis">More</a>
+            </div>                
+          </div>
+        </div>
+
+        <!-- 中心花园卡片 7 -->
+        <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Pselliophora-bifascipennis.png" alt="Pselliophora bifascipennis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Pselliophora bifascipennis</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Crane flies in the family Tipulidae are characterized by their long maxillary palps (appendages near the mouth), where the fourth segment is longer than the first three combined. They also typically have 13 segments in their antennae.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Pselliophora-bifascipennis">More</a>
+            </div>                
+          </div>
+        </div>
+
+        <!-- 中心花园卡片 8 -->
+        <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Coenosia-mollicula.png" alt="Pselliophora bifascipennisCoenosia mollicula" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Coenosia mollicula</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Flies of the genus Coenosia are predatory members of the Muscidae family. They are generally small flies known for their hunting behavior.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Coenosia-mollicula">More</a>
+            </div>                
+          </div>
+        </div>
+
+        <!-- 中心花园卡片 9 -->
+        <div class="hidden w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Endotricha-olivacealis.png" alt="Endotricha olivacealis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5" >
+            <h3 class="text-xl font-bold mb-2">Endotricha olivacealis</h3>                
+            <p class="text-neutral-600 text-sm line-clamp-2  mb-2">Pyralid moths, often called snout moths, are generally small to medium-sized with wingspans ranging from 9 to 37 mm. They are named for their prominent mouthparts (labial palps) that often extend forward like a snout.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">Lepidoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Endotricha-olivacealis">More</a>
+            </div>                
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button id="Central-Gardens-all-btn" class="px-6 py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary/5 transition-colors">
+          Show More <i class="fa fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linjian Building 临建楼分类 -->
+  <section id="Linjian-Building" class="py-10 bg-neutral-100">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center text-primary">
+            <i class="fa fa-university text-secondary mr-3"></i> Linjian Building
+          </h2>
+          <!--p class="text-neutral-600">变温、有鳞片、卵生的脊椎动物</p-->
+        </div>
+      </div>
+     
+      <!-- 网格布局卡片 -->
+      <div id="Linjian-Building-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">    
+        <!-- Linjian-Building卡片 1 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Atractomorpha-sinensis.png" alt="Atractomorpha sinensis" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Atractomorpha sinensis</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Atractomorpha grasshoppers are characterized by their distinctive cone-shaped or arrow-shaped heads, and like many grasshoppers, the males are notably smaller than the females.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Orthoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Atractomorpha-sinensis">More</a>
+            </div>
+          </div>
+        </div>     
+        
+        <!-- Linjian-Building卡片 2 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Asian-Needle-Ant.png" alt="Asian Needle Ant" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Asian Needle Ant (Brachyponera chinensis)</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The Asian needle ant (Brachyponera chinensis) is a ponerine ant, likely characterized by a typical ant body plan with a distinct head, thorax, and abdomen, and possessing a sting.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Asian-Needle-Ant">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Linjian-Building卡片 3 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/12-Spot-Ladybird.png" alt="12-Spot Ladybird" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">12-Spot Ladybird</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Vibidia duodecimguttata, the twelve-spotted ladybird, is a small, oval beetle about 4 mm long. It has a light brown body and distinctive white spots—twelve in total, with six on each wing case (elytron).</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded-full">Coleoptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="12-Spot-Ladybird">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Linjian-Building卡片 4 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Prodiamesa-olivacea.png" alt="Prodiamesa olivacea" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Prodiamesa olivacea</h3>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Chironomids, or non-biting midges, are small flies that resemble mosquitoes but lack scales on their wings and biting mouthparts. The males are easily recognized by their feathery (plumose) antennae. Some larvae are bright red, known as "bloodworms," due to a hemoglobin-like substance..</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+              <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Prodiamesa-olivacea">More</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <p class="py-10"></p>
+    </div>
+  </section>
+
+  <!-- West-Campus-Wall 校园西侧围墙/宿舍楼分类 -->
+  <section id="West-Campus-Wall" class="py-10 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center text-primary">
+            <i class="fa fa-university mr-3"></i> West Campus Wall
+          </h2>
+          <!--p class="text-neutral-600">有羽毛、卵生、前肢演化成翼的脊椎动物</p-->
+        </div>
+      </div>
+      
+      <!-- 网格布局卡片  -->
+      <div id="West-Campus-Wall-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- 横向滑动卡片容器
+      <div class="relative">
+        <div class="overflow-x-auto scrollbar-hide pb-4">
+          <div class="flex space-x-6 w-max">  -->
+            <!-- West-Campus-Wall card 1 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Clogmia-albipunctata.png" alt="Clogmia albipunctata" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-2">Clogmia albipunctata</h3>
+                <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The white-dotted drain fly (Clogmia albipunctata) is a very small (about 2–3 mm), moth-like insect with broad, hairy wings marked with distinct black and white spots, and a body covered in fine grayish hairs.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Diptera</span>
+                  <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Clogmia-albipunctata">More</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- West-Campus-Wall card 2 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Steatoda-triangulosa.png" alt="Steatoda triangulosa" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-2">Steatoda triangulosa (Triangulate Combfoot)</h3>
+                <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The triangulate cobweb spider is a small (3–6 mm) spider with a brownish-orange head, thin yellowish legs, and a distinctive bulbous, creamy abdomen marked with parallel purplish-brown zigzag lines.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full">Araneae</span>
+                  <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Steatoda-triangulosa">More</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- West-Campus-Wall card 3 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Attulus-fasciger.png" alt="Steatoda triangulosa" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-2">Attulus fasciger</h3>
+                <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Attulus fasciger is a small (3-4 mm), brownish-black jumping spider with the characteristic eight eyes of its family. Males and females are similar in size, but males have a more slender abdomen and larger, more prominent black palps.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full">Araneae</span>
+                  <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Attulus-fasciger">More</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- West-Campus-Wall卡片 4 -->
+            <div class="w-74 bg-neutral-100 rounded-xl overflow-hidden shadow-md card-hover">
+              <div class="h-74 overflow-hidden">
+                <img src="Picture/Formica-cunicularia.png" alt="Formica cunicularia" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+              </div>
+              <div class="p-5">
+                <h3 class="text-xl font-bold mb-2">Formica cunicularia</h3>
+                <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The worker ant of Formica cunicularia is an ashy grey-black color and measures 4.0–6.5 mm in length. The queens are larger (7.5–9.0 mm) and range from yellowish-red to dark black, while the males are uniformly dark and 8.0–9.0 mm long.</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Hymenoptera</span>
+                  <a href="#" class="text-primary text-sm font-medium hover:underline animal-detail" data-animal="Formica-cunicularia">More</a>
+                </div>
+              </div>
+            </div>
+      </div>
+      <p class="py-10"></p>
+    </div>
+  </section>
+
+  <!-- Other-Areas 其它区域分类 -->
+  <section id="Other-Areas" class="py-10 bg-neutral-30">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 flex items-center text-primary">
+            <i class="fa fa-bug text-secondary mr-3"></i> Other Areas
+          </h2>
+          <!--p class="text-neutral-600">变温、有鳞片、卵生的脊椎动物</p-->
+        </div>
+      </div>
+      
+      <!-- 网格布局卡片 -->
+      <div id="Other-Areas-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Other-Areas卡片 1 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Twenty-eight-Spotted-Lady-Beetle.png" alt="Twenty-eight Spotted Lady Beetle" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Twenty-eight Spotted Lady Beetle</h3>
+              <span class="bg-teal-100 text-teal-800 text-sm px-2 py-1 rounded-full">Coleoptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The 28-spotted potato ladybird has a nearly round, glossy, reddish-brown body up to 7 mm long, with 13 black spots on each wing cover and additional spots on the thorax. Its larvae and pupae are yellow-green with black, branched spines.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> South of Central Garden</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Twenty-eight-Spotted-Lady-Beetle">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other-Areas卡片 2 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Physiphora-alceae.png" alt="Physiphora alceae" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Physiphora alceae</h3>
+              <span class="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded-full">Diptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Physiphora alceae is a species of picture-winged fly (Ulidiidae), which typically have distinctive patterns on their wings and a general fly-like appearance.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Around the Dormitory</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Physiphora-alceae">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other-Areas卡片 3 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Lasius-niger.png" alt="Lasius niger" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Lasius niger</h3>
+              <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full">Hymenoptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Black garden ants, Lasius niger, are small, glossy black insects where workers measure 3–5 mm, queens are larger (up to 9 mm) and lose their wings after mating, and males are slender, wasp-like, and slightly smaller than queens.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Widespread</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Lasius-niger">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other-Areas卡片 4 -->
+        <div class="w-74 bg-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Asian-Tiger-Mosquito.png" alt="Twenty-eight Spotted Lady Beetle" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Asian Tiger Mosquito (Aedes albopictus)</h3>
+              <span class="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded-full">Diptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The Asian tiger mosquito (Aedes albopictus) is a small mosquito, less than 10 mm in length, with a distinctive black-and-white pattern. It has white bands on its legs and body, a single silvery-white line running down the thorax, and white-scaled spots on its abdomen and legs.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> Widespread</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Asian-Tiger-Mosquito">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other-Areas卡片 5 -->
+        <div class="hidden w-74 g-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Rush-Veneer.png" alt="Rush Veneer" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Rush Veneer</h3>
+              <span class="bg-red-100 text-red-800 text-sm px-2 py-1 rounded-full">Lepidoptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">The Rush Veneer moth (Nomophila noctuella) has a wingspan of 26–32 mm, with narrow, elongated brown forewings featuring distinctive darker markings, and whitish hindwings with brown veins. The mature larvae are gray-green and can grow up to 15–20 mm in length.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i> West Campus Wall<br><i class="fa fa-map-marker mr-1"></i> Sky Garden<br><i class="fa fa-map-marker mr-1"></i> Central Gardens</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Rush-Veneer">More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other-Areas卡片 6 -->
+        <div class="hidden  g-white rounded-xl overflow-hidden shadow-md card-hover">
+          <div class="h-74 overflow-hidden">
+            <img src="Picture/Paraparatrechina-sakurae.png" alt="Paraparatrechina sakurae" class="w-full h-full object-cover transition-transform duration-500 hover:scale-125">
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold mb-2">Paraparatrechina sakurae</h3>
+              <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded-full">Hymenoptera</span>
+            </div>
+            <p class="text-neutral-600 text-sm mb-3 line-clamp-2">Paraparatrechina ants are very small, typically only 1-2 mm long. They often have a distinctive metallic iridescence, showing blue, purple, or pink hues under light, and possess a unique pattern of erect hairs on their bodies.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-neutral-500"><i class="fa fa-map-marker mr-1"></i>  North Campus Wall</span>
+              <a href="#" class="text-primary font-medium hover:underline animal-detail" data-animal="Paraparatrechina-sakurae">More</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="mt-10 text-center">
+        <button id="Other-Areas-all-btn" class="px-6 py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary/5 transition-colors">
+          Show More <i class="fa fa-arrow-right ml-2"></i>
+        </button>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section id="About-Us" class="py-10 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-3">About Us</h2>
+          <p class="text-neutral-600">一个热爱自然与动物的探索者</p>
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="w-full md:w-1/3">
+            <div class="rounded-full overflow-hidden border-4 border-primary/20 w-48 h-48 mx-auto md:mx-0">
+              <img src="Picture/school.jpg" alt="站长照片" class="w-full h-full object-cover">
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3">
+            <h3 class="text-2xl font-bold mb-4">王梓毅 - 昆虫摄影师 & 动物爱好者</h3>
+            <p class="text-neutral-600 mb-4">
+              我从小就对大自然和各种动物充满好奇，这种热情驱使我成为了一名昆虫摄影师和动物保护志愿者。过去三年间，我在旅游地和校内，用镜头记录下了无数珍贵的动物瞬间。
+            </p>
+            <p class="text-neutral-600 mb-6">
+              创建这个网站的目的是希望能与更多志同道合的朋友分享这些美丽的生物，提高人们对动物保护的意识。如果你也热爱自然，欢迎通过以下方式与我联系交流。
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-gradient-natural text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-paw text-primary text-2xl"></i>
+            <span class="text-xl font-bold">Campus Insect Guide</span>
+          </div>
+          <p class="text-neutral-400 mb-4">Discover the amazing world of insects and celebrate the wonders on our campus.</p>          
+        </div>
+        
+        <div >
+          <h3 class="text-lg font-bold mb-4">Quick Link</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-neutral-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#Sky-Garden" class="text-neutral-400 hover:text-white transition-colors">Sky Garden</a></li>
+            <li><a href="#Central-Gardens" class="text-neutral-400 hover:text-white transition-colors">Central Gardens</a></li>
+            <li><a href="#Linjian-Building" class="text-neutral-400 hover:text-white transition-colors">Linjian Building</a></li>
+            <li><a href="#West-Campus-Wall" class="text-neutral-400 hover:text-white transition-colors">West Campus Wall</a></li>
+            <li><a href="#Other-Areas" class="text-neutral-400 hover:text-white transition-colors">Other Areas</a></li>
+            <li><a href="#About-Us" class="text-neutral-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fa fa-envelope text-primary mt-1 mr-3"></i>
+              <span class="text-neutral-400">wzy190901@163.com</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+              <span class="text-neutral-400">No. 37 Zhongguancun Street.Haidian District BeiJing</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-neutral-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-neutral-500 text-sm">© 2025 校园昆虫图鉴. 保留所有权利.</p>        
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- 动物详情模态框 -->
+  <div id="animal-modal" class="modal-backdrop">
+    <div class="modal-content px-6 py-6 md:p-8 m-4">
+      <div class="flex justify-between items-start mb-4">
+        <h3 id="modal-title" class="text-2xl font-bold"></h3>
+        <button id="close-modal" class="p-2 rounded-full hover:bg-neutral-200 transition-colors">
+          <i class="fa fa-times text-neutral-800"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <img id="modal-image" src="" alt="" class="w-full h-64 md:h-80 object-cover rounded-lg">
+        </div>
+        <div >
+          <div class="bg-primary/10 text-primary text-center text-sm px-2 py-1 rounded-full">
+            <span class="text-neutral-500">Class </span>
+            <span id="modal-class"></span>
+            <span class="text-neutral-500"> | Order </span>
+            <span id="modal-order"></span>            
+          </div>
+          <div class="bg-green-100 text-green-800 text-center text-sm px-2 py-1 rounded-full">
+            <span class="text-neutral-500">Family </span>
+            <span id="modal-family"></span>
+            <span class="text-neutral-500"> | Genus </span>
+            <span id="modal-genus">
+              <i class="fa fa-map-marker mr-1"></i>
+            </span>                    
+          </div>
+          <p class="h3"></p>  
+          <h4 class="text-lg font-bold mb-3">Body Structure</h4>
+          <div id="modal-description" class="text-neutral-600 space-y-3"></div>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-neutral-200">
+        <span class="text-lg font-bold mb-3">Fun facts of </span>
+        <span id="modal-name" class="text-lg font-bold mb-3"></span>                
+        <div id="modal-additional" class="text-neutral-600 space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // 动物详情数据
+    const animalData = {
+      'Lasius-niger': {   //-2
+        title: 'Lasius niger',
+        image: 'Picture/Lasius-niger.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Lasius',
+        name: 'Lasius niger',
+        description: `
+          <p>Black garden ants, Lasius niger, are small, glossy black insects where workers measure 3–5 mm, queens are larger (up to 9 mm) and lose their wings after mating, and males are slender, wasp-like, and slightly smaller than queens.</p>          
+        `,
+        additional: `
+          <p>One of the most fascinating aspects of black garden ants is their incredibly long-lived queen, who can live up to 29 years — the longest recorded lifespan of any social insect. She starts her colony alone, eating her own wings and even her eggs to survive until her first workers are born.</p>
+          <p>These ants also display surprising intelligence in disease control: sick ants voluntarily isolate themselves by spending more time outside the nest and reducing contact with others, acting like tiny, instinctive caregivers protecting their colony. Their relationship with aphids, which they “farm” for sweet nectar, and their role as bodyguards for butterfly larvae add to their charm as nature’s tiny but highly organized farmers and guardians.</p>
+       `
+      },
+      'Clogmia-albipunctata': {  //-3
+        title: 'Clogmia albipunctata',
+        image: 'Picture/Clogmia-albipunctata.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Psychodidae',
+        genus: 'Clogmia',
+        name: 'Clogmia albipunctata',
+        description: `
+          <p>The white-dotted drain fly (Clogmia albipunctata) is a very small (about 2–3 mm), moth-like insect with broad, hairy wings marked with distinct black and white spots, and a body covered in fine grayish hairs.</p>          
+        `,
+        additional: `
+          <p>What makes this tiny insect so fascinating is its incredible survival skills. Despite being commonly found in household drains, it’s nearly impossible to drown or poison them—thanks to their super-hydrophobic body hairs that repel water and even protect them from boiling water and bleach. This makes them one of the most stubborn household pests to eliminate.</p>
+          <p>But there’s more to them than just being a nuisance: their larvae actually play a helpful role in breaking down organic waste in sewage systems. So while you might not want them in your bathroom, they’re quietly doing dirty work in the background—nature’s own miniature cleanup crew. </p>          
+        `
+      },
+      'Steatoda-triangulosa': {  //-4
+        title: 'Steatoda triangulosa',
+        image: 'Picture/Steatoda-triangulosa.png',
+        class: 'Arachnida',
+        order: 'Araneae',
+        family: 'Theridiidae',
+        genus: 'Steatoda',
+        name: 'Steatoda triangulosa (Triangulate Combfoot)',
+        description: `
+          <p>The triangulate cobweb spider is a small (3–6 mm) spider with a brownish-orange head, thin yellowish legs, and a distinctive bulbous, creamy abdomen marked with parallel purplish-brown zigzag lines.</p>          
+        `,
+        additional: `
+          <p>What makes this little spider truly remarkable is its role as a natural pest controller—despite its tiny size, it fearlessly preys on insects many people fear or dislike, including fire ants, ticks, and even dangerous spiders like the brown recluse. So if you see one in a corner of your house, it might actually be working in your favor!</p>
+          <p>Another surprising fact is that this spider is almost blind and relies entirely on vibrations in its web to detect prey or threats. And while it looks intimidating, it’s not aggressive toward humans—there’s only one known case of a bite, making it a shy yet helpful roommate rather than a danger.</p>          
+        `
+      },
+      'Attulus-fasciger': {  //-5
+        title: 'Attulus fasciger',
+        image: 'Picture/Attulus-fasciger.png',
+        class: 'Arachnida',
+        order: 'Araneae',
+        family: 'Salticidae',
+        genus: 'Attulus',
+        name: 'Attulus fasciger',
+        description: `
+          <p>Attulus fasciger is a small (3-4 mm), brownish-black jumping spider with the characteristic eight eyes of its family. Males and females are similar in size, but males have a more slender abdomen and larger, more prominent black palps.</p>          
+        `,
+        additional: `
+          <p>What makes this tiny spider remarkable is its brilliant adaptation to city life. Originally from Asia, it has successfully colonized North America by moving into man-made structures, using building walls for camouflage and taking advantage of a clever hunting trick: it uses outdoor artificial lighting at night to catch insects attracted to the light, essentially turning human buildings into a 24-hour diner.</p>
+          <p>This behavior is especially smart because, as a jumping spider, it has excellent eyesight and is a visual hunter. So by positioning itself near lights, it gets a constant, easy-to-see supply of prey long after other predators have called it a day. It’s a perfect example of a small creature not just surviving, but thriving, by cleverly exploiting the human-made world.</p>          
+        `
+      },
+      // 更多动物数据可以在这里继续添加...
+      'Tetramorium-caespitum': {  // -6 -14
+        title: 'Tetramorium caespitum',
+        image: 'Picture/Tetramorium-caespitum.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Tetramorium',
+        name: 'Tetramorium caespitum',
+        description: `
+          <p>Tetramorium caespitum are typically small, reddish-brown ants commonly recognized by the grooves or lines on their head and thorax, and a stinger at the tip of their abdomen.</p>          
+        `,
+        additional: `
+          <p>What’s fascinating about these tiny ants is how they’ve become global travelers—originally native to Europe and parts of Asia, they’ve now hitchhiked their way across continents, often living right under our feet in cracks in pavements and sidewalks. That’s why they’re called “pavement ants”!</p>
+          <p>Even more intriguing is the fact that these ants are known for staging dramatic, large-scale “wars”—colonies will meet along territorial lines and engage in massive ant battles that can last for days. So next time you see a cluster of ants fighting on the sidewalk, you might be witnessing an ancient ritual of rivalry and survival playing out in miniature.</p>          
+        `
+      },
+
+      'Atractomorpha-sinensis': {  // -7
+        title: 'TAtractomorpha sinensis',
+        image: 'Picture/Atractomorpha-sinensis.png',
+        class: 'Insecta',
+        order: 'Orthoptera',
+        family: 'Pyrgomorphidae',
+        genus: 'Atractomorpha',
+        name: 'Atractomorpha sinensis',
+        description: `
+          <p>Atractomorpha grasshoppers are characterized by their distinctive cone-shaped or arrow-shaped heads, and like many grasshoppers, the males are notably smaller than the females.</p>          
+        `,
+        additional: `
+          <p>One of the most fascinating things about these grasshoppers is their clever hygiene habit: they kick their large, elongated droppings far away from their resting spot using a powerful flick of their back legs. This isn’t just for cleanliness—it’s a survival tactic to keep predators and parasites from tracking them down by scent. It’s like a tiny insect practicing its own form of pest control!</p>
+          <p>Another interesting behavior is the mating strategy: smaller males often climb onto the females long before mating and stay there, guarding them from rivals. This “ride-along” tactic is also seen in some frogs and other animals, showing how different species can develop similar strategies in the struggle to reproduce. So despite their simple appearance, these grasshoppers lead surprisingly strategic lives.</p>          
+        `
+      },
+
+      'Nylanderia-flavipes': {  // -9
+        title: 'Nylanderia flavipes',
+        image: 'Picture/Nylanderia-flavipes.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Nylanderia',
+        name: 'Nylanderia flavipes',
+        description: `
+          <p>Nylanderia ants are small to medium-sized (1–4 mm) and range in color from pale yellow to black. Workers are generally uniform in appearance with a compact, robust body, six mandibular teeth, and characteristic erect hairs on their legs, antennae, and specific body segments.</p>          
+        `,
+        additional: `
+          <p>What makes Nylanderia ants so fascinating is their incredible adaptability and global presence—they’re found on almost every continent and thrive in environments ranging from rainforests to deserts. Some species, like the Rasberry crazy ant, are notorious invasive pests that can form enormous supercolonies, overwhelming ecosystems and even disrupting electrical equipment.</p>
+          <p>Despite their small size, these ants are ecological heavyweights. They’re often among the first to discover food sources and recruit rapidly, though they usually can’t defend them against larger or more aggressive ants. Their colonies can be highly mobile, moving nests frequently—some species even settle in temporary sites that are habitable for only a few days. This combination of widespread distribution, invasive potential, and flexible living strategies makes Nylanderia a quiet but formidable force in the insect world.</p>          
+        `
+      },
+
+      'Yemma-exilis': {  // -10 -26 adult insect
+        title: 'Yemma exilis',
+        image: 'Picture/Yemma-exilis.png',
+        class: 'Insecta',
+        order: 'Hemiptera',
+        family: 'Berytidae',
+        genus: 'Yemma',
+        name: 'Yemma exilis (adult insect)',
+        description: `
+          <p>Stilt bugs (Berytidae) are extremely slender insects with remarkably long, thin legs and antennae that often have a distinctive club-like swelling at the tip. Their bodies are typically brown to yellow, and some species have slight swellings at the ends of their leg segments.</p>          
+        `,
+        additional: `
+          <p>What makes these delicate-looking insects so intriguing is their surprising ability to navigate tricky environments. Their long legs and split or toothed claws allow them to walk effortlessly across the sticky surfaces of certain plants—a feat that traps other insects. This makes them nature’s elegant problem-solver, turning a plant’s defense into their own hunting ground.</p>
+          <p>Even more surprising is their diet: while many are plant-sap feeders, some are opportunistic predators or scavengers, feeding on small insects or mites stuck on those same sticky plants. And despite their fragile appearance, they can deliver a noticeable prick if handled—a small reminder that even the most slender bugs have their defenses. They’re like delicate-looking acrobats with a practical, and sometimes prickly, side.</p>          
+        `
+      },
+
+      'Yemma-exilis-1': {  // -10 26  larva
+        title: 'Yemma exilis',
+        image: 'Picture/Yemma-exilis-1.png',
+        class: 'Insecta',
+        order: 'Hemiptera',
+        family: 'Berytidae',
+        genus: 'Yemma',
+        name: 'Yemma exilis (larva)',
+        description: `
+          <p>Stilt bugs (Berytidae) are extremely slender insects with remarkably long, thin legs and antennae that often have a distinctive club-like swelling at the tip. Their bodies are typically brown to yellow, and some species have slight swellings at the ends of their leg segments.</p>          
+        `,
+        additional: `
+          <p>What makes these delicate-looking insects so intriguing is their surprising ability to navigate tricky environments. Their long legs and split or toothed claws allow them to walk effortlessly across the sticky surfaces of certain plants—a feat that traps other insects. This makes them nature’s elegant problem-solver, turning a plant’s defense into their own hunting ground.</p>
+          <p>Even more surprising is their diet: while many are plant-sap feeders, some are opportunistic predators or scavengers, feeding on small insects or mites stuck on those same sticky plants. And despite their fragile appearance, they can deliver a noticeable prick if handled—a small reminder that even the most slender bugs have their defenses. They’re like delicate-looking acrobats with a practical, and sometimes prickly, side.</p>          
+        `
+      },
+
+      'Asian-Needle-Ant': {  // -12
+        title: 'Asian Needle Ant',
+        image: 'Picture/Asian-Needle-Ant.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Brachyponera',
+        name: 'Asian Needle Ant (Brachyponera chinensis)',
+        description: `
+          <p>The Asian needle ant (Brachyponera chinensis) is a ponerine ant, likely characterized by a typical ant body plan with a distinct head, thorax, and abdomen, and possessing a sting.</p>          
+        `,
+        additional: `
+          <p>What makes the Asian needle ant particularly fascinating is its dual impact as an invasive species: it's quietly changing ecosystems and poses a unique health risk. Unlike many ants that rely on chemical trails for navigation, this species uses visual cues when moving its colony, with worker ants even carrying nestmates during relocation—a sophisticated and less common form of ant logistics.</p>
+          <p>Perhaps more strikingly, this ant is a formidable competitor, often outnumbering and displacing native ant species where it invades. But its most direct relevance to people is its sting, which can cause painful reactions and, in some cases, trigger severe allergic responses like anaphylaxis. This combination of ecological disruption and public health impact makes the Asian needle ant a small but significant force wherever it settles.</p>          
+        `
+      },
+
+      'Twenty-eight-Spotted-Lady-Beetle': {  // -13
+        title: 'Twenty-eight Spotted Lady Beetle',
+        image: 'Picture/Twenty-eight-Spotted-Lady-Beetle.png',
+        class: 'Insecta',
+        order: 'Coleoptera',
+        family: 'Coccinellidae',
+        genus: 'Henosepilachna',
+        name: 'Twenty-eight Spotted Lady Beetle (Henosepilachna vigintioctomaculata)',
+        description: `
+          <p>The 28-spotted potato ladybird has a nearly round, glossy, reddish-brown body up to 7 mm long, with 13 black spots on each wing cover and additional spots on the thorax. Its larvae and pupae are yellow-green with black, branched spines.</p>          
+        `,
+        additional: `
+          <p>What makes this beetle fascinating is its unexpected role as a garden pest—unlike the beloved ladybugs that eat aphids, this spotted insect feasts on valuable crops like potatoes, tomatoes, and cucumbers. A single female can lay up to 400 eggs, and both larvae and adults skeletonize leaves by eating the soft tissue between veins, sometimes causing up to 25% loss in potato yields.</p>
+          <p>Despite its harmless appearance, this ladybird has expanded its range across Russia, China, and Japan, becoming a significant agricultural concern. Farmers combat it using methods like crop rotation, windy planting locations, and pesticides—making it a striking example of how a small, familiar-looking insect can have a big impact on our food supply.</p>          
+        `
+      },
+
+      'Scaled-Hump-backed-Fly': {  // -15
+        title: 'Scaled Hump-backed Fly',
+        image: 'Picture/Scaled-Hump-backed-Fly.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Phoridae',
+        genus: 'Megaselia',
+        name: 'Scaled Hump-backed Fly (Megaselia scalar)',
+        description: `
+          <p>Megaselia scalaris is a very small (about 2 mm) yellowish fly with dark markings, a distinctive humpbacked profile, and translucent wings. Its mouthparts feature sharp teeth, and males have specialized structures at the tip of the abdomen.</p>          
+        `,
+        additional: `
+          <p>What makes this tiny fly truly remarkable is its role as nature's crime scene investigator. Known as the "coffin fly," it can detect and reach buried corpses—even digging down several feet—making it a key tool in forensic entomology for estimating time of death in criminal and neglect cases. Its small size allows it to access bodies that larger insects cannot, providing crucial evidence when other clues are scarce.</p>
+          <p>Equally fascinating is its survival strategy: the larvae can swallow air to float on liquids, preventing drowning in flooded environments. With a diet ranging from nectar to decaying matter and even wounds, this adaptable insect thrives in unsanitary places worldwide. From courtroom evidence to ingenious flood avoidance, this humble "scuttle fly" proves that even the smallest creatures can have outsized impacts on science and society.</p>          
+        `
+      },
+
+      'Physiphora-alceae': {  // -16
+        title: 'Physiphora alceae',
+        image: 'Picture/Physiphora-alceae.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Ulidiidae',
+        genus: 'Physiphora',
+        name: 'Physiphora alceae',
+        description: `
+          <p>Physiphora alceae is a species of picture-winged fly (Ulidiidae), which typically have distinctive patterns on their wings and a general fly-like appearance.</p>          
+        `,
+        additional: `
+          <p>What makes this small fly fascinating is its surprisingly elaborate and charming courtship ritual. When a male wants to impress a female, he doesn't just approach her—he performs a intricate dance. This can include moving his front legs up and down in front of her, shaking them, turning sideways to lift a wing, and even gently tapping her head or body with his mouthparts.</p>
+          <p>This complex dance routine, combined with its worldwide distribution, makes Physiphora alceae a tiny globetrotter with a flair for performance. It's a delightful example of how even common insects can have sophisticated and visually engaging behaviors that rival those of more well-known animals.</p>          
+        `
+      },
+
+      'Canthophorus-niveimarginatus': {  // -17
+        title: 'Canthophorus niveimarginatus',
+        image: 'Picture/Canthophorus-niveimarginatus.png',
+        class: 'Insecta',
+        order: 'Hemiptera',
+        family: 'Cydnidae',
+        genus: 'Canthophorus',
+        name: 'Canthophorus niveimarginatus',
+        description: `
+          <p>True bugs (Hemiptera) are characterized by piercing-sucking mouthparts formed into a beak-like "rostrum," and forewings that are often partially hardened at the base and membranous at the tips—a feature that gives the order its name, "half-winged."</p>          
+        `,
+        additional: `
+          <p>What makes true bugs fascinating is their incredible diversity and their deep connection to human life—both as pests and as beneficial partners. This group includes insects as familiar as cicadas, whose loud summer songs are produced by drum-like organs, and aphids, which are "farmed" by ants for their sweet honeydew. But it also includes species with dramatic impacts: bed bugs are notorious human parasites, while assassin bugs can transmit serious diseases like Chagas disease.</p>
+          <p>At the same time, certain true bugs are valuable to us. Scale insects produce cochineal dye, used for centuries to color food and fabrics, and some predatory bugs are used in biological pest control to protect crops. From singing in treetops to hiding in bedding, and from damaging agriculture to contributing to industry, true bugs demonstrate how deeply insect lives are intertwined with our own.</p>          
+        `
+      },
+
+      'Chinese-Honey-Bee': {  // -19
+        title: 'Chinese Honey Bee',
+        image: 'Picture/Chinese-Honey-Bee.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Apidae',
+        genus: 'Apis',
+        name: 'Chinese Honey Bee (Apis cerana)',
+        description: `
+          <p>Honey bees in general are characterized by a robust, hairy body, two pairs of wings, and a structure for collecting pollen on their hind legs. Workers have a sting used for defense.</p>          
+        `,
+        additional: `
+          <p>What makes honey bees—including the Chinese honey bee—so fascinating is their highly complex and cooperative society. They live in large colonies with a single queen, thousands of female workers, and seasonal males, each with specialized roles. They construct intricate hexagonal wax combs to raise their young and store honey, a feat of natural engineering that has fascinated humans for millennia.</p>
+          <p>Perhaps most remarkable is their relationship with people. Honey bees are not just producers of honey, beeswax, and royal jelly—they are vital pollinators for many of the crops we rely on. The eastern honey bee (Apis cerana) has been domesticated for centuries in Asia, while its western relative (Apis mellifera) has been introduced worldwide. This tiny insect’s ability to sustain ecosystems and support human agriculture makes it one of the most beneficial—and beloved—insects on the planet.</p>          
+        `
+      },
+
+      'Coppery-Metallic-Furrow-Bee': {  // -20
+        title: 'Coppery Metallic-Furrow Bee',
+        image: 'Picture/Coppery-Metallic-Furrow-Bee.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Halictidae',
+        genus: 'Halictus',
+        name: 'Coppery Metallic-Furrow Bee (Halictus aerarius)',
+        description: `
+          <p>Bees of the genus Halictus are typically black or dark brown, sometimes with a metallic greenish tint, and are characterized by distinctive whitish bands at the tip (apex) of their abdominal segments.</p>          
+        `,
+        additional: `
+          <p>What makes these small bees so remarkable is their flexible social behavior. Unlike honey bees, which are always highly social, some Halictus species can switch between solitary and social living depending on their environment. For example, the species Halictus rubicundus lives alone in colder, high-altitude regions but forms small social colonies with queens and workers in warmer areas—essentially changing its "lifestyle" based on climate.</p>
+          <p>Another fascinating trait is their nesting habit: they dig burrows in the soil and create clusters of brood cells that resemble miniature honeycombs, but these are made from waterproofed soil instead of wax. This combination of behavioral flexibility and ingenious nesting makes the Halictus bee a tiny architect with an adaptable social life.</p>          
+        `
+      },
+
+      'Asian-Tiger-Mosquito': {  // -21
+        title: 'Asian Tiger Mosquito',
+        image: 'Picture/Asian-Tiger-Mosquito.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Culicidae',
+        genus: 'Aedes',
+        name: 'Asian Tiger Mosquito (Aedes albopictus)',
+        description: `
+          <p>The Asian tiger mosquito (Aedes albopictus) is a small mosquito, less than 10 mm in length, with a distinctive black-and-white pattern. It has white bands on its legs and body, a single silvery-white line running down the thorax, and white-scaled spots on its abdomen and legs.</p>          
+        `,
+        additional: `
+          <p>What makes the Asian tiger mosquito particularly fascinating—and concerning—for the average person is its close association with humans and its role as a daytime biter. Unlike many mosquitoes that are most active at dusk or dawn, this one hunts during the day, making it harder to avoid. It’s also an expert at breeding in tiny amounts of stagnant water—often right in our backyards—using everything from flower pots and gutters to discarded bottles.</p>
+          <p>What’s more, this mosquito isn’t just a nuisance; it’s a capable carrier of several serious viruses, including dengue, chikungunya, and Zika. Its rapid spread across the globe through international trade (like used tires) has made it one of the world’s most invasive species. So, a mosquito that’s active when you are, breeds in everyday containers, and can transmit diseases—it’s a pest that’s both clever and dangerous.</p>          
+        `
+      },
+
+      'Rush-Veneer': {  // -22
+        title: 'Rush Veneer',
+        image: 'Picture/Rush-Veneer.png',
+        class: 'Insecta',
+        order: 'Lepidoptera',
+        family: 'Crambidae',
+        genus: 'Nomophila',
+        name: 'Rush Veneer (Nomophila noctuella)',
+        description: `
+          <p>The Rush Veneer moth (Nomophila noctuella) has a wingspan of 26–32 mm, with narrow, elongated brown forewings featuring distinctive darker markings, and whitish hindwings with brown veins. The mature larvae are gray-green and can grow up to 15–20 mm in length.</p>          
+        `,
+        additional: `
+          <p>What’s particularly interesting about the Rush Veneer is its remarkable migratory behavior. Unlike many moths that stay in one region, this species travels long distances—flying from Southern Europe and North Africa all the way to Northern Europe. Imagine a small moth undertaking a journey that many birds are known for!</p>
+          <p>Additionally, this moth isn’t picky when it comes to food. Its caterpillars feed on a wide variety of plants, including clover, wheat, and several grasses, making it a common but often unnoticed guest in fields and gardens. It’s also attracted to light, so you might just spot one on a warm summer night—a tiny world traveler resting near your window.</p>          
+        `
+      },
+
+      'Discomyza-incurva': {  // -23
+        title: 'Discomyza incurva',
+        image: 'Picture/Discomyza-incurva.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Ephydridae',
+        genus: 'Discomyza',
+        name: 'Discomyza incurva',
+        description: `
+          <p>Discomyza incurva is a very small fly, only 2.5–3 mm in length, belonging to the shore fly family (Ephydridae).</p>          
+        `,
+        additional: `
+          <p>The most fascinating aspect of this tiny fly is its unusual lifestyle: it is a parasite of land snails, specifically those of the Helix genus. For a non-expert, the idea of a fly parasitizing a snail is quite unexpected and intriguing. We often think of flies as feeding on decaying matter or being nuisances, but this species has evolved a specialized and much more complex relationship with another animal.</p>
+          <p>This unique parasitic behavior highlights the incredible and often hidden diversity of ecological interactions happening right under our noses, even in common habitats like grasslands. A creature so small that it's easily overlooked is engaged in a delicate biological dance with a snail, reminding us that nature is full of surprising connections.</p>          
+        `
+      },
+
+      'Ceratina-hieroglyphica': {  // -25
+        title: 'Ceratina hieroglyphica',
+        image: 'Picture/Ceratina-hieroglyphica.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Apidae',
+        genus: 'Ceratina',
+        name: 'Ceratina hieroglyphica',
+        description: `
+          <p>Small carpenter bees (Ceratina) are typically dark, shiny, often metallic-looking bees with sparse body hair. They are small in size and commonly have yellow markings, especially on the face, which often leads to them being mistaken for sweat bees.</p>          
+        `,
+        additional: `
+          <p>What makes these tiny bees truly fascinating is their surprisingly complex social lives. Unlike the well-known honeybee, which lives in large, permanent colonies, small carpenter bees show a flexible approach to family life. Some live alone, while others form small, cooperative groups where sisters or mothers and daughters share a nest—one bee may forage for food while another stands guard. This makes them a fascinating example of early social evolution in insects.</p>
+          <p>Even more intriguing, a few species of these bees have done away with males entirely and can reproduce on their own—a rare ability in the animal kingdom known as parthenogenesis. So, within this often-overlooked group of small, metallic bees, we find a world of social flexibility and reproductive innovation that challenges many of our assumptions about how insects live.</p>          
+        `
+      },
+
+      'Paraparatrechina-sakurae': {  // -27
+        title: 'Paraparatrechina sakurae',
+        image: 'Picture/Paraparatrechina-sakurae.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Paraparatrechina',
+        name: 'Paraparatrechina sakurae',
+        description: `
+          <p>Paraparatrechina ants are very small, typically only 1-2 mm long. They often have a distinctive metallic iridescence, showing blue, purple, or pink hues under light, and possess a unique pattern of erect hairs on their bodies.</p>          
+        `,
+        additional: `
+          <p>The most captivating thing about these tiny ants is their hidden, jewel-like beauty. While we often think of ants as simply black or red, Paraparatrechina ants can shimmer with an unexpected metallic sheen of blue, purple, or pink when seen up close. It's a remarkable example of how something so common and small can possess a subtle, almost magical, visual splendor that usually goes unnoticed.</p>
+          <p>Furthermore, the fact that there are likely many more species of these iridescent ants still waiting to be discovered in tropical leaf litter and forest canopies adds an element of mystery. It reminds us that even in the world of ants—a group we think we know well—there are still countless tiny, shining secrets left to uncover right beneath our feet.</p>          
+        `
+      },
+
+      'Piratula-piratoides': {  // -28
+        title: 'Piratula piratoides',
+        image: 'Picture/Piratula-piratoides.png',
+        class: 'Arachnida',
+        order: 'Araneae',
+        family: 'Lycosidae',
+        genus: 'Piratula',
+        name: 'Piratula piratoides',
+        description: `
+          <p>Wolf spiders are robust, agile hunters with a body size ranging from less than 10 mm to 35 mm. They are easily identified by their unique eye arrangement: three rows of eyes, with the middle row containing two very large eyes that give them excellent vision.</p>          
+        `,
+        additional: `
+          <p>What makes wolf spiders truly captivating is their remarkable maternal care. Unlike most spiders, a female wolf spider carries her silken egg sac attached to her spinnerets, dragging it behind her as she hunts. But the real wonder begins after the eggs hatch: the tiny spiderlings climb onto their mother's abdomen and ride along with her for several weeks. This creates the striking image of a spider covered in a living, moving carpet of her own young—a rare and fascinating example of parental care in the invertebrate world.</p>
+          <p>Additionally, their excellent eyesight and hunting prowess make them effective natural pest controllers in gardens and homes. They don't build webs to catch prey but actively chase it down, much like the wolves they are named after. This combination of fierce independence and tender motherhood makes the wolf spider a surprisingly relatable and intriguing creature.</p>          
+        `
+      },
+
+      'Eurystylus-costalis': {  // -29
+        title: 'Eurystylus costalis',
+        image: 'Picture/Eurystylus-costalis.png',
+        class: 'Insecta',
+        order: 'Hemiptera',
+        family: 'Miridae',
+        genus: 'Eurystylus',
+        name: 'Eurystylus costalis',
+        description: `
+          <p>Hydrotaea flies are small, typically 5.75–8.5 mm in length, with colors ranging from light brown to bluish-black. They have large red eyes, plumose antennae, and their larvae are carnivorous, often featuring ventral welts and large spiracles.</p>          
+        `,
+        additional: `
+          <p>What makes these flies truly fascinating is their unexpected role as both villains and helpers. While some species are pests that can transmit diseases like mastitis in cattle and even bother humans, others are surprisingly useful. For instance, the black dump fly (H. aenescens) is actually sold commercially because its larvae prey on housefly maggots, making it a natural form of pest control.</p>
+          <p>Even more intriguing is their importance in forensic science. These flies are specialists in the later stages of decomposition, arriving on a corpse months after death. Their presence helps forensic entomologists estimate the post-mortem interval, and they can even be used to detect drugs in a body or determine if a body has been moved. This combination of being a farm nuisance, a beneficial insect, and a crime scene investigator makes the Hydrotaea fly a remarkably versatile and unexpected character in the natural world.</p>          
+        `
+      },
+
+      'Pselliophora-bifascipennis': {  // -31
+        title: 'Pselliophora bifascipennis',
+        image: 'Picture/Pselliophora-bifascipennis.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Tipulidae',
+        genus: 'Pselliophora',
+        name: 'Pselliophora bifascipennis',
+        description: `
+          <p>Crane flies in the family Tipulidae are characterized by their long maxillary palps (appendages near the mouth), where the fourth segment is longer than the first three combined. They also typically have 13 segments in their antennae.</p>          
+        `,
+        additional: `
+          <p>What’s most fascinating about these large, gangly insects—often mistaken for giant mosquitoes—is that they are completely harmless to humans. Unlike mosquitoes, they do not bite or spread disease; many adult crane flies don’t even eat! They spend most of their life as larvae in soil or water, and as adults, their main goal is simply to mate.</p>
+          <p>Another intriguing fact is that these seemingly delicate insects are ancient inhabitants of our planet. Fossils show that true crane flies have been around since the Late Jurassic period, meaning they were buzzing among the dinosaurs. So the next time you see one clumsily bouncing against a window screen, you’re looking at a prehistoric relic—not a pest.</p>          
+        `
+      },
+
+      'Coenosia-mollicula': {  // -32
+        title: 'Coenosia-mollicula',
+        image: 'Picture/Coenosia-mollicula.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Muscidae',
+        genus: 'Coenosia',
+        name: 'Coenosia-mollicula',
+        description: `
+          <p>Flies of the genus Coenosia are predatory members of the Muscidae family. They are generally small flies known for their hunting behavior.</p>          
+        `,
+        additional: `
+          <p>The most captivating aspect of these "tiger flies" is not just that they are predators of other insects, but that they can fall victim to a truly bizarre and gruesome fungal infection. In a real-life horror story, fungi from the genus Strongwellsea infect these flies. The astonishing part is that the infected fly continues to live and behave normally for days while the fungus consumes its internal organs—starting with its genitals and fat reserves—from the inside out. All the while, the living fly unwittingly sprays thousands of fungal spores onto other flies, spreading the infection. This eerie phenomenon, where the host becomes a walking zombie dispersing its own killer's offspring, reveals a startling and complex side of nature often hidden from our view.</p>          
+        `
+      },
+
+      'Formica-cunicularia': {  // -33
+        title: 'Formica cunicularia',
+        image: 'Picture/Formica-cunicularia.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Formicidae',
+        genus: 'Formica',
+        name: 'Formica cunicularia',
+        description: `
+          <p>The worker ant of Formica cunicularia is an ashy grey-black color and measures 4.0–6.5 mm in length. The queens are larger (7.5–9.0 mm) and range from yellowish-red to dark black, while the males are uniformly dark and 8.0–9.0 mm long.</p>          
+        `,
+        additional: `
+          <p>One of the most fascinating aspects of these ants is their incredible navigational skills. When foraging, they follow meandering, irregular paths to search for food. However, once they find something, they can head directly back to their nest in a straight line. They achieve this through a complex mental process called path integration, essentially using an internal "pedometer" and compass to calculate the direct route home. They can also use visual landmarks, especially their remarkable ability to distinguish between different shades of green, which is highly useful in their grassy habitats.</p>
+          <p>Furthermore, these ants play a surprising role in their ecosystem by accidentally helping lichens disperse to new areas. Even more dramatic is their fate as a common target for slave-making ants, which raid their nests, kill the adults, and steal the brood to raise as captive workers—a startling example of nature's harsh realities unfolding right under our feet.</p>          
+        `
+      },
+
+      'Bronze-winged-Bamboo-Carpenter': {  // -34
+        title: 'Bronze-winged Bamboo-Carpenter',
+        image: 'Picture/Bronze-winged-Bamboo-Carpenter.png',
+        class: 'Insecta',
+        order: 'Hymenoptera',
+        family: 'Apidae',
+        genus: 'Xylocopa',
+        name: 'Bronze-winged Bamboo-Carpenter (Xylocopa tranquebarorum)',
+        description: `
+          <p>Carpenter bees (Xylocopa) are large, robust bees often confused with bumblebees. They are typically all black or black with some yellow/white hairs, and have a characteristic shiny, hairless abdomen, unlike the fully hairy abdomen of bumblebees.</p>          
+        `,
+        additional: `
+          <p>The most fascinating aspect of carpenter bees is their unique nesting behavior, which gives them their name. Unlike most bees, they are skilled woodworkers, using their strong mandibles to chew perfectly round holes into dead wood or bamboo to create their nests. This can sometimes make them a minor nuisance around wooden structures, but they are generally not destructive like termites.</p>
+          <p>Perhaps even more intriguing is their complex social life. While often solitary, some species exhibit simple social structures where mothers and daughters live together, sharing duties like foraging and guarding the nest. Furthermore, their approach to feeding is quite clever—some species practice "nectar robbing" by biting a hole at the base of a flower to access nectar without pollinating it, a shortcut that showcases their intelligence and adaptability.</p>          
+        `
+      },
+
+      'Hair-banded-Broad-nosed-Weevil': {  // -35
+        title: 'Hair-banded Broad-nosed Weevil',
+        image: 'Picture/Hair-banded-Broad-nosed-Weevil.png',
+        class: 'Insecta',
+        order: 'Coleoptera',
+        family: 'Curculionidae',
+        genus: 'Myosides',
+        name: 'Hair-banded Broad-nosed Weevil (Myosides seriehispidus)',
+        description: `
+          <p>True weevils (urculionidae) are characterized by their distinctive downward-curved snout (rostrum) and elbowed antennae that end in small clubs. They have robust, often scaly or bristly bodies, and range in size from 1 to 35 mm.</p>          
+        `,
+        additional: `
+          <p>What makes weevils particularly fascinating is their clever "playing dead" behavior. When disturbed, many weevils will immediately fall over onto their backs and remain completely motionless, mimicking death to fool potential predators. This simple but effective survival tactic is something anyone can observe in their own garden.</p>
+          <p>Additionally, the sheer scale of the weevil family is astounding—with over 83,000 species described, they represent one of the largest animal families on Earth. This incredible diversity means weevils have adapted to nearly every environment and plant type, making them both a gardener's nuisance and a testament to evolutionary success. Their long snouts, used by females to drill into plants and lay eggs, are like natural precision tools, showcasing a specialized design honed over millions of years.</p>          
+        `
+      },
+
+      'Panaorus-csikii': {  // -36
+        title: 'Panaorus csikii',
+        image: 'Picture/Panaorus-csikii.png',
+        class: 'Insecta',
+        order: 'Hemiptera',
+        family: 'Rhyparochromidae',
+        genus: 'Panaorus',
+        name: 'Panaorus csikii',
+        description: `
+          <p>Members of the Rhyparochromidae family are small true bugs, typically brown or mottled in color. A common distinguishing feature is their enlarged fore femora (the upper part of the front legs).</p>          
+        `,
+        additional: `
+          <p>The most intriguing aspect of these bugs is hidden in their name. "Rhyparochromidae" comes from Greek words meaning "dirt-colored," which perfectly describes their appearance – they are masters of camouflage, blending into the soil and leaf litter where they live. This humble name hints at their ecological role as nature's recyclers, as many species feed on fallen seeds on the ground.</p>
+          <p>Furthermore, this is a massive and diverse family, with over 2,100 species. This means that the small, brown, "dirt-colored" bugs you might casually notice in your garden could belong to any one of hundreds of different species, each with its own unique story. They are a perfect example of how a seemingly ordinary and overlooked group of insects can represent a world of hidden diversity right beneath our feet.</p>          
+        `
+      },
+
+      'Endotricha-olivacealis': {  // -37
+        title: 'Endotricha olivacealis',
+        image: 'Picture/Endotricha-olivacealis.png',
+        class: 'Insecta',
+        order: 'Lepidoptera',
+        family: 'Pyralidae',
+        genus: 'Endotricha',
+        name: 'Endotricha olivacealis',
+        description: `
+          <p>Pyralid moths, often called snout moths, are generally small to medium-sized with wingspans ranging from 9 to 37 mm. They are named for their prominent mouthparts (labial palps) that often extend forward like a snout.</p>          
+        `,
+        additional: `
+          <p>The most fascinating aspect of this moth family is its profound yet hidden impact on our daily lives. While many of these small, brown moths go unnoticed, their larvae are among the world's most significant pests of stored goods. If you've ever found small moths fluttering in a bag of flour, rice, or dried fruit, you've likely encountered a pyralid moth, such as the Indianmeal Moth. These insects are master infiltrators of our pantries, causing billions in damage to stored food products worldwide.</p>
+          <p>Conversely, some species in this family are remarkably useful. The larvae of wax moths (waxworms) are bred in huge numbers as live food for pet reptiles and birds, and are popular as fishing bait. Furthermore, one species, the Cactoblastis moth, was famously used as a biological control agent to successfully manage invasive prickly pear cacti in Australia. This dual identity—as both a major pantry pest and a useful human ally—makes this family a compelling example of how insects are intricately linked to human economies and ecosystems.</p>          
+        `
+      },
+
+      '12-Spot-Ladybird': {  // -38
+        title: '12-Spot Ladybird',
+        image: 'Picture/12-Spot-Ladybird.png',
+        class: 'Insecta',
+        order: 'Coleoptera',
+        family: 'Coccinellidae',
+        genus: 'Vibidia',
+        name: '12-Spot Ladybird (Vibidia duodecimguttata)',
+        description: `
+          <p>Vibidia duodecimguttata, the twelve-spotted ladybird, is a small, oval beetle about 4 mm long. It has a light brown body and distinctive white spots—twelve in total, with six on each wing case (elytron).</p>          
+        `,
+        additional: `
+          <p>The most fascinating aspect of this ladybird is its unusual diet. Unlike the familiar, aphid-eating ladybugs that gardeners love, this species feeds primarily on powdery mildew, a common white fungus that grows on plants like oak and hazel trees. This makes it a unique and beneficial ally in the garden, acting as a natural cleaner that helps control fungal diseases.</p>
+          <p>Furthermore, its life cycle is a hidden drama of transformation. The larvae, which look nothing like the adult beetles, go through several distinct stages, changing color from a transparent grey to an electric green and finally to a light beige before pupating under fungus-covered leaves. This combination of being a helpful "fungus-eater" and undergoing a striking metamorphosis makes this small, spotted beetle a charming and ecologically important character in its own right.</p>          
+        `
+      },
+
+      'Prodiamesa-olivacea': {  // -39
+        title: 'Prodiamesa olivacea',
+        image: 'Picture/Prodiamesa-olivacea.png',
+        class: 'Insecta',
+        order: 'Diptera',
+        family: 'Chironomidae',
+        genus: 'Propsilocerus',
+        name: 'Prodiamesa olivacea',
+        description: `
+          <p>Chironomids, or non-biting midges, are small flies that resemble mosquitoes but lack scales on their wings and biting mouthparts. The males are easily recognized by their feathery (plumose) antennae. Some larvae are bright red, known as "bloodworms," due to a hemoglobin-like substance.</p>          
+        `,
+        additional: `
+          <p>The most fascinating aspect of these harmless midges is their incredible resilience, allowing them to thrive in some of the most extreme environments on Earth. The Antarctic midge (Belgica antarctica) holds the title of the largest land animal in Antarctica, surviving freezing temperatures in a continent of ice. Furthermore, the larvae of some species, known as bloodworms, can live in heavily polluted water with very low oxygen levels, thanks to their unique hemoglobin that helps them capture oxygen.</p>
+          <p>Even more astonishing is the ability of one African species to undergo anhydrobiosis—a state of complete dehydration where all metabolic activity stops. The larvae can essentially be dried out completely and remain in this suspended animation for up to 17 years, only to spring back to life when water returns. This combination of being a polar survivor, a pollution-tolerant "bloodworm," and a real-life example of suspended animation makes this common insect a true marvel of adaptation.</p>          
+        `
+      },
+
+    };
+
+    // 模态框相关元素
+    const modal = document.getElementById('animal-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalImage = document.getElementById('modal-image');
+    const modalCategory = document.getElementById('modal-category');
+    const modalHabitat = document.getElementById('modal-habitat');
+    const modalDiet = document.getElementById('modal-diet');
+    const modalDescription = document.getElementById('modal-description');
+    const modalAdditional = document.getElementById('modal-additional');
+    const modalName = document.getElementById('modal-name');
+    const modalClass = document.getElementById('modal-class');
+    const modalOrder = document.getElementById('modal-order');
+    const modalFamily = document.getElementById('modal-family');
+    const modalGenus = document.getElementById('modal-genus');
+    const closeModal = document.getElementById('close-modal');
+
+    // 打开模态框
+    function openModal(animalId) {
+      const animal = animalData[animalId];
+      if (!animal) return;
+      
+      modalTitle.textContent = animal.title;
+      modalImage.src = animal.image;
+      modalImage.alt = animal.title;
+      //modalCategory.textContent = animal.category;
+      //modalHabitat.textContent = animal.habitat;
+      //modalDiet.textContent = animal.diet;
+      modalDescription.innerHTML = animal.description;
+      modalAdditional.innerHTML = animal.additional;
+      modalName.textContent = animal.name;
+      modalClass.textContent = animal.class;
+      modalOrder.textContent = animal.order;
+      modalFamily.textContent = animal.family;
+      modalGenus.textContent = animal.genus;
+     
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // 防止背景滚动
+    }
+
+    // 关闭模态框
+    function closeModalFunc() {
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // 恢复背景滚动
+    }
+
+    // 为所有详情按钮添加点击事件
+    document.querySelectorAll('.animal-detail').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const animalId = this.getAttribute('data-animal');
+        openModal(animalId);
+      });
+    });
+
+    // 关闭模态框按钮事件
+    closeModal.addEventListener('click', closeModalFunc);
+
+    // 点击模态框背景关闭模态框
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModalFunc();
+      }
+    });
+
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModalFunc();
+      }
+    });
+
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // 切换图标
+      const icon = menuToggle.querySelector('i');
+      if (icon.classList.contains('fa-bars')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+      } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+      }
+    });
+    
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('py-2', 'shadow');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow');
+      }
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单（如果打开）
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          const icon = menuToggle.querySelector('i');
+          icon.classList.replace('fa-times', 'fa-bars');
+        }
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 分类筛选按钮交互
+    document.querySelectorAll('.category-filter').forEach(button => {
+      button.addEventListener('click', function() {
+        // 找到同一组中的所有按钮
+        const siblings = this.parentElement.querySelectorAll('.category-filter');
+        
+        // 移除所有按钮的活跃状态
+        siblings.forEach(btn => {
+          if (btn.classList.contains('bg-primary')) {
+            btn.classList.remove('bg-primary', 'text-white');
+            btn.classList.add('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          } else if (btn.classList.contains('bg-secondary')) {
+            btn.classList.remove('bg-secondary', 'text-white');
+            btn.classList.add('bg-neutral-100', 'text-neutral-800', 'hover:bg-neutral-200');
+          } else if (btn.classList.contains('bg-neutral-800')) {
+            btn.classList.remove('bg-neutral-800', 'text-white');
+            btn.classList.add('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          }
+        });
+        
+        // 设置当前按钮为活跃状态
+        if (this.parentElement.closest('section#SkyGardens')) {
+          this.classList.remove('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-primary', 'text-white');
+        } else if (this.parentElement.closest('section#birds')) {
+          this.classList.remove('bg-neutral-100', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-secondary', 'text-white');
+        } else if (this.parentElement.closest('section#reptiles')) {
+          this.classList.remove('bg-white', 'text-neutral-800', 'hover:bg-neutral-200');
+          this.classList.add('bg-neutral-800', 'text-white');
+        }
+      });
+    });
+
+    //精选图鉴全部显示按钮
+    // 获取元素
+    const viewAllBtn = document.getElementById('view-all-btn');
+    const cardContainer = document.getElementById('featured-cards');
+    const hiddenCards = document.querySelectorAll('#featured-cards > div.hidden'); // 剩余的隐藏卡片
+
+    // 标记是否显示全部（默认false）
+    let isAllShown = false;
+
+    // 点击事件
+    viewAllBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // 阻止默认跳转
+      
+      if (!isAllShown) {
+        // 显示全部：显示隐藏卡片
+        hiddenCards.forEach(card => card.classList.remove('hidden')); // 显示剩余卡片
+        // 按钮文本改为“收起”
+        viewAllBtn.innerHTML = 'Hide <i class="fa fa-arrow-up ml-2"></i>';
+        isAllShown = true;
+      } else {
+        // 收起：隐藏剩余卡片
+        hiddenCards.forEach(card => card.classList.add('hidden')); // 隐藏剩余卡片
+        // 按钮文本改回“See More”
+        viewAllBtn.innerHTML = 'Show More <i class="fa fa-arrow-right ml-2"></i>';
+        isAllShown = false;
+      }
+    });
+
+    //空中花园全部显示按钮
+    // 获取元素
+    const skyGardenAllBtn = document.getElementById('Sky-Garden-all-btn');
+    const skyGardencardContainer = document.getElementById('Sky-Garden-cards');
+    const skyGardenhiddenCards = document.querySelectorAll('#Sky-Garden-cards > div.hidden'); // 剩余的隐藏卡片
+
+    // 标记是否显示全部（默认false）
+    let isskyGardenAllShown = false;
+
+    // 点击事件
+    skyGardenAllBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // 阻止默认跳转
+      
+      if (!isskyGardenAllShown) {
+        // 显示全部：显示隐藏卡片
+        skyGardenhiddenCards.forEach(card => card.classList.remove('hidden')); // 显示剩余卡片
+        // 按钮文本改为“收起”
+        skyGardenAllBtn.innerHTML = 'Hide <i class="fa fa-arrow-up ml-2"></i>';
+        isskyGardenAllShown = true;
+      } else {
+        // 收起：隐藏剩余卡片
+        skyGardenhiddenCards.forEach(card => card.classList.add('hidden')); // 隐藏剩余卡片
+        // 按钮文本改回“See More”
+        skyGardenAllBtn.innerHTML = 'Show More <i class="fa fa-arrow-right ml-2"></i>';
+        isskyGardenAllShown = false;
+      }
+    });
+
+    //中心花园全部显示按钮
+    // 获取元素
+    const centralGardensAllBtn = document.getElementById('Central-Gardens-all-btn');
+    const centralGardenscardContainer = document.getElementById('Central-Gardens-cards');
+    const centralGardenshiddenCards = document.querySelectorAll('#Central-Gardens-cards > div.hidden'); // 剩余的隐藏卡片
+
+    // 标记是否显示全部（默认false）
+    let iscentralGardensAllShown = false;
+
+    // 点击事件
+    centralGardensAllBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // 阻止默认跳转
+      
+      if (!iscentralGardensAllShown) {
+        // 显示全部：显示隐藏卡片
+        centralGardenshiddenCards.forEach(card => card.classList.remove('hidden')); // 显示剩余卡片
+        // 按钮文本改为“收起”
+        centralGardensAllBtn.innerHTML = 'Hide <i class="fa fa-arrow-up ml-2"></i>';
+        iscentralGardensAllShown = true;
+      } else {
+        // 收起：隐藏剩余卡片
+        centralGardenshiddenCards.forEach(card => card.classList.add('hidden')); // 隐藏剩余卡片
+        // 按钮文本改回“See More”
+        centralGardensAllBtn.innerHTML = 'Show More <i class="fa fa-arrow-right ml-2"></i>';
+        iscentralGardensAllShown = false;
+      }
+    });
+
+    //其它区域全部显示按钮
+    // 获取元素
+    const otherAreasAllBtn = document.getElementById('Other-Areas-all-btn');
+    const otherAreascardContainer = document.getElementById('Other-Areas-cards');
+    const otherAreashiddenCards = document.querySelectorAll('#Other-Areas-cards > div.hidden'); // 剩余的隐藏卡片
+
+    // 标记是否显示全部（默认false）
+    let isotherAreasAllShown = false;
+
+    // 点击事件
+    otherAreasAllBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // 阻止默认跳转
+      
+      if (!isotherAreasAllShown) {
+        // 显示全部：显示隐藏卡片
+        otherAreashiddenCards.forEach(card => card.classList.remove('hidden')); // 显示剩余卡片
+        // 按钮文本改为“收起”
+        otherAreasAllBtn.innerHTML = 'Hide <i class="fa fa-arrow-up ml-2"></i>';
+        isotherAreasAllShown = true;
+      } else {
+        // 收起：隐藏剩余卡片
+        otherAreashiddenCards.forEach(card => card.classList.add('hidden')); // 隐藏剩余卡片
+        // 按钮文本改回“See More”
+        otherAreasAllBtn.innerHTML = 'Show More <i class="fa fa-arrow-right ml-2"></i>';
+        isotherAreasAllShown = false;
+      }
+    });
+
+
+  </script>
+</body>
+</html>
